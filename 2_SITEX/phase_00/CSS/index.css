@@ -1,0 +1,93 @@
+
+/* ------- VARIABLES ------- */
+
+:root {
+    --menu-bg-color: #181A12;
+}
+
+:focus {
+    outline-style: none;
+}
+
+/* ------- MENU ------- */
+
+.menu {
+    background: var(--menu-bg-color);
+}
+
+.menu ul {
+    margin: 0;
+    list-style: none;
+}
+.menu ul li {
+    margin: 0;
+    padding: 0;
+}
+
+.menu a {
+    height: 1%;
+    padding: 0.25em 0.5em;
+    font-size: 1.2em;
+    text-decoration: none;
+    color: #FF6533;
+
+    border: 0.1em solid var(--menu-bg-color);
+}
+
+.menu a:hover {
+    border-color: darkgray;
+    -webkit-border-radius: 0.75em 0.25em;
+    -moz-border-radius: 0.75em 0.25em;
+    border-radius: 0.75em 0.25em;
+
+    outline: none;
+}
+
+.menu a:focus {
+    -webkit-border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    border-radius: 0.5em;
+
+    border-bottom-color: #808080;
+    border-right-color: #808080;
+    border-left-color: transparent;
+    border-top-color: transparent;
+}
+
+.menu a:hover, .menu a:focus{
+    background: #282828;
+}
+
+#menu a {
+    font-size: 1.2em;
+    line-height: 2.5;
+}
+
+#menu ul {
+    padding: 0 10px;
+}
+
+#menu ul li {
+    display: inline;
+}
+
+
+#sous-menu {
+    width: 18%;
+    float: left;
+}
+
+#sous-menu ul {
+    padding: 20px 10px;
+}
+
+#sous-menu a {
+    display: block;
+    line-height: 2;
+}
+
+/* ------- FOOTER ------- */
+
+#credits {
+    display: block;
+}

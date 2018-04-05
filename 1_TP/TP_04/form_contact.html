@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Semaine 04 - CONTACT</title>
+</head>
+
+<body>
+<h1>Page de contact :</h1>
+<hr>
+<form action="mail_4.php" method="post">
+    <label for="expe">Expéditeur :</label><br>
+    <input type="email" id="expe" name="expe" value="a.ninipereira@students.ephec.be" autofocus><br>
+
+    <label for="sub">Sujet : </label><br>
+    <input type="text" id="sub" name="sub" value="Mail de test "><br>
+
+    <label for="msg">Message</label><br>
+    <textarea name="msg" id="msg" cols="30" rows="10">Contenu de mon mail de test !</textarea><br>
+
+    <input type="submit" value="Send Mail">
+</form>
+</body>
+</html>

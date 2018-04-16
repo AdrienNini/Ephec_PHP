@@ -14,6 +14,13 @@ if (isset($_POST)) {
 
         $out = '';
 
+        /*
+        echo '<pre>' . print_r(chargeConfig("config.ini"), 1) . '</pre>';
+        echo '<hr>';
+        echo '<pre>' . print_r($_POST, 1) . '</pre>';
+        */
+
+
         foreach (array_replace_recursive(chargeConfig('config.ini'), $_POST) as $k => $v) {
             $out .= '[' . $k . ']';
             $out .= "\n";
@@ -41,9 +48,7 @@ if (isset($_POST)) {
     }
 }
 
-foreach (afficheConfig(chargeConfig('config.ini')) as $elem){
-    echo $elem;
-}
+echo afficheConfig(chargeConfig('config.ini'));
 
 // Functions
 function chargeConfig($filename) {
@@ -51,8 +56,63 @@ function chargeConfig($filename) {
 }
 
 function afficheConfig($config) {
+
+    // GereBloc Function
+    function gereBloc($k, $v) {
+
+        $oKey = ['min', 'max', 'pas', 'choix'];
+
+        foreach ($oKey as $key) {
+            $$key = isset($v[$key]) ? $v[$key] : null;
+            unset($v[$key]);
+        }
+
+        $out = [];
+
+        foreach ($v as $item => $value) {
+            $out[] = '<label for="' . $k . '_' . $item . '">' . $item . ' </label>';
+            switch ($item) {
+                case 'taille':
+                    $out[] = '<input type="number" ' .
+                        'id="' . $k . '_' . $item . '" ' .
+                        'name="' . $k . '[' . $item .  ']' . '" ' .
+                        'value="' . $value . '" required ' .
+                        ($min ? 'min="' . $min . '"': '') .
+                        ($max ? 'max="' . $max . '"': '') .
+                        ($pas ? 'step="' . $pas . '"': '') .
+                        'title="'. ($min ? 'min=' . $min . ' ': '') . ($max ? 'max=' . $max . ' ': '') . ($pas ? 'step=' . $pas . ' ': '') .'"' .
+                        '><br>';
+                    break;
+
+                case 'type':
+                    $out[] = ': ';
+                    $out[] = '<span id="' . $k . '_' . $item . '">';
+                    foreach (explode('|', $value) as $type) {
+                        $out[] = '<input type="checkbox" id="' . $k . '_' . $item . '_' . $type . '" name="' . $k . '[choix][]' . '" value="' . $type . '" ' . (in_array($type, $choix) ? 'checked': '') . '>';
+                        $out[] = '<label for="' . $k . '_' . $item . '_' . $type . '">' . $type . ' </label>';
+                    }
+                    $out[] = '</span>';
+                    break;
+
+                case 'comment':
+                    $out[] = '<textarea cols="50" readonly disabled required>' . $value . '</textarea><br>';
+                    break;
+
+                default:
+                    $out[] = '<input type="text" id="' . $k . '_' . $item . '" name="' . $k . '[' . $item .  ']' . '" value="' . $value . '" required><br>';
+                    break;
+            }
+
+        }
+
+        return $out;
+    }
+
     $out = [];
     $out[] = '<form id="modifConfig" name="modifConfig" method="post">';
+
+    // Unset Error type
+    unset($config['ERREUR']);
 
     foreach ($config as $k => $v) {
         $out[] = '<fieldset><legend>' . $k . '</legend>';
@@ -61,58 +121,5 @@ function afficheConfig($config) {
     }
 
     $out[] = '<input type="submit" name="envoie" value="Envoyer"></form>';
-    return $out;
-}
-
-function gereBloc($k, $v) {
-
-    // Size limits variables
-    $min = isset($v['min']) ? $v['min'] : null;
-    $max = isset($v['max']) ? $v['max'] : null;
-    $pas = isset($v['pas']) ? $v['pas'] : null;
-
-    unset($v['min']);
-    unset($v['max']);
-    unset($v['pas']);
-
-    // Type checkboxes
-    $choix = isset($v['choix']) ? $v['choix'] : [];
-
-    unset($v['choix']);
-
-    $out = [];
-
-    foreach ($v as $item => $value) {
-        $out[] = '<label for="' . $k . '_' . $item . '">' . $item . ' </label>';
-        switch ($item) {
-            case 'taille':
-                $out[] = '<input type="number" ' .
-                        'id="' . $k . '_' . $item . '" ' .
-                        'name="' . $k . '[' . $item .  ']' . '" ' .
-                        'value="' . $value . '" required ' .
-                        ($min ? 'min="' . $min . '"': '') .
-                        ($max ? 'max="' . $max . '"': '') .
-                        ($pas ? 'step="' . $pas . '"': '') .
-                        'title="'. ($min ? 'min=' . $min . ' ': '') . ($max ? 'max=' . $max . ' ': '') . ($pas ? 'step=' . $pas . ' ': '') .'"' .
-                    '><br>';
-                break;
-
-            case 'type':
-                $out[] = ': ';
-                $out[] = '<span id="' . $k . '_' . $item . '">';
-                foreach ($value as $type) {
-                    $out[] = '<input type="checkbox" id="' . $k . '_' . $item . '_' . $type . '" name="' . $k . '[' . $item . '][]' . '" ' . (in_array($type, $choix) ? 'checked': '') . '>';
-                    $out[] = '<label for="' . $k . '_' . $item . '_' . $type . '">' . $type . ' </label>';
-                }
-                $out[] = '</span>';
-                break;
-
-            default:
-                $out[] = '<input type="text" id="' . $k . '_' . $item . '" name="' . $k . '[' . $item .  ']' . '" value="' . $value . '" required><br>';
-                break;
-        }
-
-    }
-
-    return $out;
+    return implode($out, "\n");
 }

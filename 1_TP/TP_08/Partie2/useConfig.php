@@ -12,32 +12,36 @@ if (isset($_POST)) {
 
         unset($_POST['envoie']);
 
-        $out = '';
+        $out = [];
+
+        /*
+        echo '<pre>' . print_r(chargeConfig("config.ini"), 1) . '</pre>';
+        echo '<hr>';
+        echo '<pre>' . print_r($_POST, 1) . '</pre>';
+        */
+
 
         foreach (array_replace_recursive(chargeConfig('config.ini.php'), $_POST) as $k => $v) {
-            $out .= '[' . $k . ']';
-            $out .= "\n";
+            $out[] = '[' . $k . ']';
             foreach ($v as $item => $value) {
 
                 switch (gettype($value)) {
                     case 'array':
                         foreach ($value as $elem) {
-                            $out .= $item . '[] = "' . $elem . '"';
-                            $out .= "\n";
+                            $out[] = $item . '[] = "' . $elem . '"';
                         }
                         break;
 
                     default:
-                        $out .= $item . ' = "' . $value . '"';
-                        $out .= "\n";
+                        $out[] = $item . ' = "' . $value . '"';
                         break;
                 }
             }
 
-            $out .= "\n";
+            $out[] = "\n";
         }
 
-        file_put_contents('config.ini.php', $out);
+        file_put_contents('config.ini.php', implode("\n\r", $out));
     }
 }
 

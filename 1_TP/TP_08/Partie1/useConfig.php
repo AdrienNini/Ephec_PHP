@@ -57,6 +57,13 @@ function afficheConfig($config) {
     // GereBloc Function
     function gereBloc($k, $v) {
 
+        /**
+         * @var $min String
+         * @var $max String
+         * @var $pas String
+         * @var $choix Array
+         */
+
         $oKey = ['min', 'max', 'pas', 'choix'];
 
         foreach ($oKey as $key) {

@@ -1,8 +1,8 @@
 <section id="tpsem05">
     <fieldset id="tp05search">
         <legend>Groupe recherché</legend>
-        <form action="" name="recherche" id="formSearch">
-            <input type="text" name="txtSearch" id="text" class="I" placeholder="Groupe recherché">
+        <form action="" name="formSearch" id="formSearch">
+            <input type="text" name="tp05Text" id="text" class="I" placeholder="Groupe recherché">
             <div>
                 <span title="début (Begin)">
                     <label for="B">&#8676;</label><input type="radio" id="B" value="B" name="posSearch">

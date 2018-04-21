@@ -77,6 +77,21 @@ function appelAjax(elem) {
 
 }
 
+function filtrage() {
+    var v = $(this).val();
+    $(this).removeClass()
+    switch($(this).parent().find('input:checked').val()) {
+        case 'I': $(this).addClass('I'); break;
+        case 'B': v = '^' + v; $(this).addClass('B'); break;
+        case 'E': v += '$'; $(this).addClass('E'); break;
+    }
+    var r = new RegExp(v, 'i');
+    var l = myData['allGroups'].filter(function(x) {
+        return x.nom.match(r);
+    });
+    $('#formSelect').html(makeOptions(l, 'nom', 'nom'));
+}
+
 function gereRetour(retour) {
     retour = testeJson(retour);
     var destination = '#contenu';
@@ -113,8 +128,13 @@ function gereRetour(retour) {
                 $('#formSelect').change(function () {
                     appelAjax(this.parentElement);
                 });
+                $('#formSearch').submit(function(evt) {
+                    evt.preventDefault();
+                }).find('input[name=tp05Text]').keyup(filtrage);
+                $('#formSearch').find('input[type=radio]').change(function () {
+                    $('#formSearch input[name=tp05Text]').trigger('keyup');
+                });
                 break;
-
             case 'data':
                 myData['allGroups'] = JSON.parse(retour[action]);
                 $('#formSelect').html(makeOptions(myData.allGroups, 'nom', 'nom'));

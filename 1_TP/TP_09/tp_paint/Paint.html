@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Paint</title>
+    <link rel="stylesheet" href="/ALL/jQui/jquery-ui.min.css">
+    <link rel="stylesheet" href="css/colorpicker.css" type="text/css"/>
+    <link rel="stylesheet" media="screen" type="text/css" href="css/layout.css"/>
+    <link rel="stylesheet" href="CSS/Paint.css">
+
+    <script src="/ALL/jQ/jquery-3.3.1.min.js"></script>
+    <script src="/ALL/jQui/jquery-ui.1.12.1.min.js"></script>
+    <script src="js/colorpicker.js"></script>
+    <script src="js/layout.js?ver=1.0.2"></script>
+    <script src="JS/Paint.js"></script>
+</head>
+
+<body>
+<div class="Toolbar">
+    <span id="upload">- UPLOAD -</span>
+    <span id="menuUpload" title="chargement d'une image">
+        <dl class="accordeon">
+            <dt>web</dt>
+            <dd>
+                <fieldset>
+                    <legend>Chargement Web</legend>
+                    <form action="" id="formWeb">
+                        <input type="text" name="iWeb" size="50"
+                               value="https://www.html5canvastutorials.com/demos/assets/darth-vader.jpg">
+                        <input type="submit" value="charger">
+                    </form>
+                </fieldset>
+            </dd>
+            <dt>ajax</dt>
+            <dd>
+                <fieldset>
+                    <legend>Chargement Ajax</legend>
+                    <form action="" id="formAjax">
+                        <input type="text" name="iAjax" size="50" value="dataURL.txt">
+                        <input type="submit" value="charger">
+                    </form>
+                </fieldset>
+            </dd>
+            <dt>fileReader</dt>
+            <dd>
+                <fieldset>
+                    <legend>chargement fileReader</legend>
+                    <form action="">
+                        <label>Image File:</label><br/>
+                        <input type="file" id="imageLoader" name="imageLoader"/>
+                    </form>
+                </fieldset>
+            </dd>
+        </dl>
+    </span>
+</div>
+<div class="Toolbar">
+    - Pen Color -<br>
+    <div id="colorSelector">
+        <div style="background-color: #0000ff"></div>
+    </div>
+</div>
+<div class="Toolbar">
+    - Pen Thickness -<br>
+    <canvas id="thicknessCanvas" width="30" height="30"></canvas>
+    <div id="thicknessSize"></div>
+</div>
+<div class="CanvasContainer">
+    <canvas id="drawingCanvas" width="500" height="300"></canvas>
+</div>
+<div class="Toolbar">
+    - Operations -<br>
+    <button onclick="saveCanvas()">Save the Canvas</button>
+    <button onclick="clearCanvas()">Clear the Canvas</button>
+    <div id="savedCopyContainer">
+        <img id="savedImageCopy"><br>
+        Right-click to save ...
+    </div>
+</div>
+</body>
+</html>

@@ -9,6 +9,8 @@ window.onload = initCanvas;
 function initCanvas() {
     // Get the canvas and the drawing context.
     canvas = document.getElementById("drawingCanvas");
+    canvas.width = 500;
+    canvas.height = 500;
     context = canvas.getContext("2d");
 
     // Attach the events that you need for drawing.
@@ -17,7 +19,7 @@ function initCanvas() {
     canvas.onmouseout = stopDrawing;
     canvas.onmousemove = draw;
     imageObj.onload = function() {
-        context.drawImage(imageObj, 0, 0);
+        context.drawImage(imageObj, 0, 0, imageObj.width, imageObj.height);
     };
 
     // Thickness Canvas
@@ -86,18 +88,32 @@ function saveCanvas() {
     imageContainer.style.display = "block";
 }
 
+function resize(img) {
+    if (img.width > canvas.width) {
+        let ratio = canvas.width / img.width;
+        img.height *= ratio;
+        img.width = canvas.width;
+    }
+
+    if (img.height > canvas.height) {
+        let ratio = canvas.height / img.height;
+        img.height = canvas.height;
+        img.width *= ratio;
+    }
+}
+
 function handleImage(e){
     var reader = new FileReader();
     reader.onload = function(event){
         var img = new Image();
         img.onload = function(){
-            canvas.width = img.width;
-            canvas.height = img.height;
-            context.drawImage(img,0,0);
-        }
+            resize(img);
+            context.drawImage(img,0,0, img.width, img.height);
+        };
         img.src = event.target.result;
-    }
+    };
     reader.readAsDataURL(e.target.files[0]);
+    event.target.result = "";
 }
 
 function callAjax(dataUrl) {
@@ -109,6 +125,7 @@ function callAjax(dataUrl) {
             // Makes sure it's found the file.
             if(request.status == 200) {
                 imageObj.src = request.responseText;
+                resize(imageObj);
             }
         }
     };
@@ -124,6 +141,7 @@ function drawThickness(size) {
     changeThickness(size)
 }
 
+
 $(document).ready(function () {
     initCanvas();
 
@@ -135,7 +153,7 @@ $(document).ready(function () {
         position: {
             my: "left top",
             at: "center bottom",
-            of: $('body div:first')
+            of: "body div:first"
         },
         closeOnEscape: true,
         autoOpen: false,
@@ -149,6 +167,7 @@ $(document).ready(function () {
     $('#formWeb').submit(function(evt) {
         evt.preventDefault();
         imageObj.src = $(this)[0].iWeb.value;
+        resize(imageObj);
         $('#menuUpload').dialog('close');
     });
     $('#formAjax').submit(function(evt) {
@@ -165,7 +184,6 @@ $(document).ready(function () {
             changeColor($('.colorpicker_new_color').css('background-color'));
         });
     });
-
     $('#thicknessSize').slider({
         min: 1,
         max: 10,
@@ -175,4 +193,9 @@ $(document).ready(function () {
             drawThickness($(this).slider('value'));
         }
     });
+    $('#canvasSize').click(function (evt) {
+        evt.preventDefault();
+        canvas.width = $(this).val();
+        canvas.height = $(this).val();
+    })
 });

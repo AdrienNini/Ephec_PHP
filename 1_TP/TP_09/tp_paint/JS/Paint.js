@@ -157,8 +157,8 @@ $(document).ready(function () {
         },
         closeOnEscape: true,
         autoOpen: false,
-        show: 250,
-        hide: 500
+        show: {effect: "slide", direction: "up", duration: 250},
+        hide: {effect: "drop", duration: 500}
     });
     $('body div:first').click(function (evt) {
         evt.preventDefault();

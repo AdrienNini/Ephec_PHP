@@ -18,7 +18,7 @@ function initCanvas() {
     canvas.onmouseup = stopDrawing;
     canvas.onmouseout = stopDrawing;
     canvas.onmousemove = draw;
-    imageObj.onload = function() {
+    imageObj.onload = function () {
         context.drawImage(imageObj, 0, 0, imageObj.width, imageObj.height);
     };
 
@@ -60,9 +60,10 @@ function draw(e) {
 function changeColor(color) {
     // Change the current drawing color.
     context.strokeStyle = color;
-    thicknessContext.strokeStyle = color;
+
+    /*thicknessContext.strokeStyle = color;
     thicknessContext.fillStyle = color;
-    drawThickness($('#thicknessSize').slider('value'));
+    drawThickness($('#thicknessSize').slider('value'));*/
 
 }
 
@@ -102,13 +103,13 @@ function resize(img) {
     }
 }
 
-function handleImage(e){
+function handleImage(e) {
     var reader = new FileReader();
-    reader.onload = function(event){
+    reader.onload = function (event) {
         var img = new Image();
-        img.onload = function(){
+        img.onload = function () {
             resize(img);
-            context.drawImage(img,0,0, img.width, img.height);
+            context.drawImage(img, 0, 0, img.width, img.height);
         };
         img.src = event.target.result;
     };
@@ -118,11 +119,11 @@ function handleImage(e){
 function callAjax(dataUrl) {
     var request = new XMLHttpRequest();
     request.open('GET', dataUrl, true);
-    request.onreadystatechange = function() {
+    request.onreadystatechange = function () {
         // Makes sure the document is ready to parse.
-        if(request.readyState == 4) {
+        if (request.readyState == 4) {
             // Makes sure it's found the file.
-            if(request.status == 200) {
+            if (request.status == 200) {
                 imageObj.src = request.responseText;
                 resize(imageObj);
             }
@@ -134,7 +135,7 @@ function callAjax(dataUrl) {
 function drawThickness(size) {
     thicknessContext.clearRect(0, 0, thicknessCanvas.width, thicknessCanvas.height);
     thicknessContext.beginPath();
-    thicknessContext.arc(thicknessCanvas.width / 2, thicknessCanvas.height / 2, size/2, 0, 2*Math.PI);
+    thicknessContext.arc(thicknessCanvas.width / 2, thicknessCanvas.height / 2, size / 2, 0, 2 * Math.PI);
     thicknessContext.fill();
     thicknessContext.stroke();
     changeThickness(size)
@@ -163,13 +164,13 @@ $(document).ready(function () {
         evt.preventDefault();
         $('#menuUpload').dialog('open');
     }).css({cursor: 'pointer'});
-    $('#formWeb').submit(function(evt) {
+    $('#formWeb').submit(function (evt) {
         evt.preventDefault();
         imageObj.src = $(this)[0].iWeb.value;
         resize(imageObj);
         $('#menuUpload').dialog('close');
     });
-    $('#formAjax').submit(function(evt) {
+    $('#formAjax').submit(function (evt) {
         evt.preventDefault();
         //callAjax($(this)[0].iAjax.value);
         $.get($(this)[0].iAjax.value, function (data) {
@@ -178,14 +179,12 @@ $(document).ready(function () {
         });
         $('#menuUpload').dialog('close');
     });
-    $('#imageLoader').change(function(evt) {
+    $('#imageLoader').change(function (evt) {
         handleImage(evt);
         $('#menuUpload').dialog('close');
     });
-    $('#colorSelector div:first').click(function() {
-        $(".colorpicker").mouseover(function () {
-            changeColor($('.colorpicker_new_color').css('background-color'));
-        });
+    $(".colorpicker").click(function () {
+        changeColor($('.colorpicker_new_color').css('background-color'));
     });
     $('#thicknessSize').slider({
         min: 1,

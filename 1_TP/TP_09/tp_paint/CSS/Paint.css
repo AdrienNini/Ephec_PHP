@@ -1,55 +1,68 @@
 body {
-  background: white;
+    background: white;
 }
 
 .Toolbar {
-  float: left;
-  font-family: 'Trebuchet MS'; 
-  font-size: 14px;
-  font-variant: small-caps;
-  text-align: center;
-  background: #F2F7FE;
-  padding: 10px 15px 3px 10px;
-  margin-bottom: 1px;
-  margin-right: 1px;
-  border: 1px solid #7B899B;
+    float: left;
+    font-family: 'Trebuchet MS';
+    font-size: 14px;
+    font-variant: small-caps;
+    text-align: center;
+    background: #F2F7FE;
+    padding: 10px 15px 3px 10px;
+    margin-bottom: 1px;
+    margin-right: 1px;
+    border: 1px solid #7B899B;
 }
 
 .Toolbar button {
-  padding: 6px;
-  margin: 7px 2px;
-  font-variant: normal;
-  font-size: 12px;
+    padding: 6px;
+    margin: 7px 2px;
+    font-variant: normal;
+    font-size: 12px;
 }
 
 .CanvasContainer {
-  clear: both;
+    clear: both;
 }
 
 canvas {
-  border: 1px solid #7B899B;
+    border: 1px solid #7B899B;
 }
 
 img {
-  padding: 2px;
-  border: 2px solid #F2F7FE;
+    padding: 2px;
+    border: 2px solid #F2F7FE;
 }
 
 img:hover {
-  border: 2px groove #E4F0FE;
-  background: white;
+    border: 2px groove #E4F0FE;
+    background: white;
 }
 
-
 img.Selected {
-  border: 2px groove #E4F0FE;
+    border: 2px groove #E4F0FE;
 }
 
 #savedCopyContainer {
-  display: none;
+    display: none;
 }
 
 #savedCopyContainer img {
-  width: 250px;
-  height: 150px;
+    width: 250px;
+    height: 150px;
+}
+
+#thicknessCanvas {
+    border: none;
+}
+
+
+#custom-handle {
+    width: 1.2em;
+    height: 1.2em;
+    top: 50%;
+    margin-top: -.7em;
+    text-align: center;
+    line-height: 1.2em;
 }

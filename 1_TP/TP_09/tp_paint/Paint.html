@@ -14,7 +14,6 @@
     <script src="js/layout.js?ver=1.0.2"></script>
     <script src="JS/Paint.js"></script>
 </head>
-
 <body>
 <div class="Toolbar">
     <span id="upload">- UPLOAD -</span>
@@ -62,8 +61,11 @@
 </div>
 <div class="Toolbar">
     - Pen Thickness -<br>
-    <canvas id="thicknessCanvas" width="30" height="30"></canvas>
-    <div id="thicknessSize"></div>
+    <div id="thicknessSize">
+        <div id="custom-handle" class="ui-slider-handle">
+            <canvas id="thicknessCanvas" width="17" height="17"></canvas>
+        </div>
+    </div>
 </div>
 <div class="Toolbar">
     - Taille -<br>

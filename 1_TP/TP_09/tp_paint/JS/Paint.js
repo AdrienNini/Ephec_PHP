@@ -113,7 +113,6 @@ function handleImage(e){
         img.src = event.target.result;
     };
     reader.readAsDataURL(e.target.files[0]);
-    event.target.result = "";
 }
 
 function callAjax(dataUrl) {
@@ -135,7 +134,7 @@ function callAjax(dataUrl) {
 function drawThickness(size) {
     thicknessContext.clearRect(0, 0, thicknessCanvas.width, thicknessCanvas.height);
     thicknessContext.beginPath();
-    thicknessContext.arc(thicknessCanvas.width / 2, thicknessCanvas.height / 2, size, 0, 2*Math.PI);
+    thicknessContext.arc(thicknessCanvas.width / 2, thicknessCanvas.height / 2, size/2, 0, 2*Math.PI);
     thicknessContext.fill();
     thicknessContext.stroke();
     changeThickness(size)
@@ -163,7 +162,7 @@ $(document).ready(function () {
     $('body div:first').click(function (evt) {
         evt.preventDefault();
         $('#menuUpload').dialog('open');
-    });
+    }).css({cursor: 'pointer'});
     $('#formWeb').submit(function(evt) {
         evt.preventDefault();
         imageObj.src = $(this)[0].iWeb.value;
@@ -172,11 +171,15 @@ $(document).ready(function () {
     });
     $('#formAjax').submit(function(evt) {
         evt.preventDefault();
-        callAjax($(this)[0].iAjax.value);
+        //callAjax($(this)[0].iAjax.value);
+        $.get($(this)[0].iAjax.value, function (data) {
+            imageObj.src = data;
+            resize(imageObj);
+        });
         $('#menuUpload').dialog('close');
     });
     $('#imageLoader').change(function(evt) {
-        handleImage(event);
+        handleImage(evt);
         $('#menuUpload').dialog('close');
     });
     $('#colorSelector div:first').click(function() {
@@ -189,8 +192,13 @@ $(document).ready(function () {
         max: 10,
         step: 1,
         value: 3,
-        slide: function () {
-            drawThickness($(this).slider('value'));
+        create: function (event, ui) {
+            //$('#custom-handle').text($(this).slider("value"));
+            changeColor($('.colorpicker_new_color').css('background-color'));
+        },
+        slide: function (event, ui) {
+            //$('#custom-handle').text(ui.value);
+            drawThickness(ui.value);
         }
     });
     $('#canvasSize').click(function (evt) {

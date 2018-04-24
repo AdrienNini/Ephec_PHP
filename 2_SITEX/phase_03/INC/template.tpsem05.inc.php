@@ -1,30 +1,31 @@
 <section id="tpsem05">
-    <fieldset id="tp05search">
-        <legend>Groupe recherché</legend>
-        <form action="" name="formSearch" id="formSearch">
+    <form action="" name="formSearch" id="formSearch">
+        <fieldset id="tp05search">
+            <legend>Groupe recherché</legend>
             <input type="text" name="tp05Text" id="text" class="I" placeholder="Groupe recherché">
             <div>
                 <span title="début (Begin)">
                     <label for="B">&#8676;</label><input type="radio" id="B" value="B" name="posSearch">
                 </span>
                 <span title="millieu (In)">
-                    <label for="I">&#8676;</label><input type="radio" id="I" value="I" name="posSearch" checked><label for="I">&#8677;</label>
+                    <label for="I">&#8676;</label><input type="radio" id="I" value="I" name="posSearch" checked><label
+                            for="I">&#8677;</label>
                 </span>
                 <span title="fin (End)">
                     <input type="radio" id="E" value="E" name="posSearch"><label for="E">&#8677;</label>
                 </span>
             </div>
-        </form>
-    </fieldset>
-    <fieldset id="tp05select">
-        <legend>Suggestion</legend>
-        <form action="formSubmit.html" name="suges" id="formTP05">
+        </fieldset>
+    </form>
+    <form action="formSubmit.html" name="suges" id="formTP05">
+        <fieldset id="tp05select">
+            <legend>Suggestion</legend>
             <select name="select" id="formSelect" title="choisissez le groupe à afficher" size="10">
                 <option value="">a</option>
                 <option value="" class="deja">b</option>
             </select>
-        </form>
-    </fieldset>
+        </fieldset>
+    </form>
     <fieldset id="tp05result">
         <legend>Liste de cours</legend>
         <p>Pas de groupe sélectionné</p>
@@ -82,7 +83,7 @@
     }
 
     #formSelect option.deja::before {
-        content:'\21AA \00a0';
+        content: '\21AA \00a0';
     }
 
 </style>

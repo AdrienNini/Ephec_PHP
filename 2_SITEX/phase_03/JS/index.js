@@ -126,7 +126,7 @@ function gereRetour(retour) {
             case 'formTP05':
                 $('#contenu').html(retour[action]);
                 $('#formSelect').change(function () {
-                    appelAjax(this.parentElement);
+                    appelAjax(this.form);
                 });
                 $('#formSearch').submit(function(evt) {
                     evt.preventDefault();

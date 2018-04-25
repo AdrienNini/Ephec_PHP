@@ -10,7 +10,7 @@
 
 session_start();
 if (!isset($_SESSION['start'])) {
-    $_SESSION['start'] = date('Ymdhms');
+    $_SESSION['start'] = date('YmdHms');
     $_SESSION['log'] = [];
 }
 

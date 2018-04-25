@@ -100,7 +100,7 @@ function gereRequete($rq) {
             break;
         case 'resetSession':
             session_unset();
-            $_SESSION['start'] = date('Ymdhms');
+            $_SESSION['start'] = date('YmdHms');
             $_SESSION['log'][time()] = $rq;
             debug(d($_SESSION['start']));
             debug(d($_SESSION['log']));

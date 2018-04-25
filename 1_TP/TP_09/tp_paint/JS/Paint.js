@@ -61,9 +61,9 @@ function changeColor(color) {
     // Change the current drawing color.
     context.strokeStyle = color;
 
-    /*thicknessContext.strokeStyle = color;
+    thicknessContext.strokeStyle = color;
     thicknessContext.fillStyle = color;
-    drawThickness($('#thicknessSize').slider('value'));*/
+    drawThickness($('#thicknessSize').slider('value'));
 
 }
 
@@ -183,7 +183,7 @@ $(document).ready(function () {
         handleImage(evt);
         $('#menuUpload').dialog('close');
     });
-    $(".colorpicker").click(function () {
+    $(".colorpicker").mouseover(function () {
         changeColor($('.colorpicker_new_color').css('background-color'));
     });
     $('#thicknessSize').slider({

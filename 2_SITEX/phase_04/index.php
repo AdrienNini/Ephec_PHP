@@ -25,6 +25,7 @@ $auteur = "<a href=mailto:$mail title=$mail>". $__INFOS__['nom'] ." ". $__INFOS_
 
 if (isset($_GET['rq'])) {
     if (!empty($_GET['rq'])) {
+        require_once "/ALL/kint/kint.php";
         require_once "INC/request.inc.php";
         $toSend = [];
         gereRequete($_GET['rq']);

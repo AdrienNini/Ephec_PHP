@@ -28,6 +28,12 @@ function debug($txt) {
     $toSend['debug'] .= $txt;
 }
 
+function kint($txt) {
+    global $toSend;
+    if (!isset($toSend['kint'])) $toSend['kint'] = "";
+    $toSend['kint'] .= $txt;
+}
+
 function toSend($txt, $action = 'display') {
     global $toSend;
     if (!isset($toSend[$action])) $toSend[$action] = "";
@@ -37,7 +43,7 @@ function toSend($txt, $action = 'display') {
 function callResAjax($rq) {
     require_once '/RES/appelAjax.php';
     global $toSend;
-    $toSend = json_decode(RES_appelAjax($rq, 'action'));
+    $toSend = array_merge($toSend, (Array) json_decode(RES_appelAjax($rq, 'action')));
 }
 
 function chargeTemplate($name = 'yololo') {
@@ -75,12 +81,34 @@ function sendMakeTable($tab) {
 }
 
 function gereRequete($rq) {
+    kint(d($rq));
     switch ($rq) {
         case 'sem04': toSend('Cette fois je te reconnais (' . $rq . ')', 'display'); break;
         case 'sem03': toSend('Requête « ' . $rq . ' » : le TP03 est disponnible sur le serveur !', 'display'); break;
         case 'TPsem05': tpSem05(); break;
         case 'formSubmit': gereSubmit(); break;
-        default: callResAjax($rq); break;
+        case 'displaySession':
+            debug(d($_SESSION['start']));
+            debug(d($_SESSION['log']));
+            $_SESSION['log'][time()] = $rq;
+            break;
+        case 'clearLog':
+            $_SESSION['log'] = [];
+            $_SESSION['log'][time()] = $rq;
+            debug(d($_SESSION['start']));
+            debug(d($_SESSION['log']));
+            break;
+        case 'resetSession':
+            session_unset();
+            $_SESSION['start'] = date('Ymdhms');
+            $_SESSION['log'][time()] = $rq;
+            debug(d($_SESSION['start']));
+            debug(d($_SESSION['log']));
+            break;
+        default:
+            callResAjax($rq);
+            kint('requête inconnue (' . $rq . ') transférée à callResAjax()');
+            break;
 
     }
 }

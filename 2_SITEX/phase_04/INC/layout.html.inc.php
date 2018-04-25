@@ -8,11 +8,14 @@
     <title>
         <?= $title ?>
     </title>
+    <link rel="stylesheet" href="/all/jQui/jquery-ui.min.css">
     <!-- La feuille de styles "base.css" doit être appelée en premier. -->
     <link rel="stylesheet" type="text/css" href="CSS/base.css" media="all" />
     <link rel="stylesheet" type="text/css" href="CSS/modele04.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="CSS/index.css" media="screen" />
+
     <script src="/all/jQ/jquery-3.1.1.min.js"></script>
+    <script src="/all/jQui/jquery-ui.1.12.1.min.js"></script>
     <script src="JS/index.js"></script>
 </head>
 
@@ -25,12 +28,19 @@
             <img id="logo" alt="<?= $logoAlt ?>" src="<?= $logoPath ?>" />
             <?= $blogName ?>
         </h1>
-        <nav id="menu" class="menu">
-            <ul>
+        <nav>
+            <ul id="menu" class="menu">
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="userProfil.html">Profil</a></li>
                 <li><a href="userInfos.html">Mes infos</a></li>
                 <li><a href="config.html">Configuration</a></li>
+                <li> Session
+                    <ul id="sMenu" class="menu">
+                        <li><a href="displaySession.html">affiche</a></li>
+                        <li><a href="clearLog.html">efface log</a></li>
+                        <li><a href="resetSession.html">redémarre</a></li>
+                    </ul>
+                </li>
                 <li><a href="gestLog.html">Connexion</a></li>
             </ul>
         </nav><!-- #navigation -->

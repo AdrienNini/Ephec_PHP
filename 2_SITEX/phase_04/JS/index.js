@@ -26,6 +26,11 @@ $(document).ready(function() {
                 .append('<aside id="kint"></aside>');
     $('#gestion aside').hide();
 
+    // Create jQuery UI menu
+    $('#menu').menu({
+        position: {my: "center top", at: "center bottom"}
+    });
+
 
     /**
      * Event Managment
@@ -99,12 +104,14 @@ function gereRetour(retour) {
         destination = retour['destination'];
         delete (retour['destination']);
     }
+    $('#gestion aside').fadeOut(215);
     for (var action in retour) {
         switch (action) {
             case 'display':
                 $('#contenu').html(retour[action]);
                 break;
 
+            case 'kint':
             case 'debug':
             case 'error':
                 $('#' + action).html(retour[action]).fadeIn(1200);
@@ -135,6 +142,7 @@ function gereRetour(retour) {
                     $('#formSearch input[name=tp05Text]').trigger('keyup');
                 });
                 break;
+
             case 'data':
                 myData['allGroups'] = JSON.parse(retour[action]);
                 $('#formSelect').html(makeOptions(myData.allGroups, 'nom', 'nom'));

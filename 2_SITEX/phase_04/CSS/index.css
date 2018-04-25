@@ -9,6 +9,20 @@
     outline-style: none;
 }
 
+
+/*  jQuery UI override  */
+
+.ui-widget.ui-widget-content {
+    border: inherit;
+    color: inherit;
+}
+
+.ui-menu-item-wrapper.ui-state-active {
+    border-color: transparent;
+    background: none;
+    color: #FF6533;
+}
+
 /* ------- MENU ------- */
 
 .menu {
@@ -24,9 +38,13 @@
     padding: 0;
 }
 
+.menu li {
+    color: orange;
+}
+
 .menu a {
     height: 1%;
-    padding: 0.25em 0.5em;
+    padding: 0.25em 0.5em !important;
     font-size: 1.2em;
     text-decoration: none;
     color: #FF6533;
@@ -67,10 +85,9 @@
     padding: 0 10px;
 }
 
-#menu ul li {
+#menu ul, #menu li {
     display: inline;
 }
-
 
 #sous-menu {
     width: 18%;
@@ -85,6 +102,17 @@
     display: block;
     line-height: 2;
 }
+
+#sMenu {
+    border: darkorange 0.05em;
+    border-radius: .5em;
+}
+
+#sMenu a {
+    padding: 1em;
+    box-shadow: rgba(0, 0, 0, 0.5) .25em .25em .5em;
+}
+
 
 /* ------- EROOR ------- */
 

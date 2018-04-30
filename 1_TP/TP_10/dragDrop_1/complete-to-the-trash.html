@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Trash It!</title>
+    <link href="/all/jQui/jquery-ui.min.css" rel="stylesheet">
+    <link href="CSS/site.css" rel="stylesheet">
+    <link href="CSS/interactions.css" rel="stylesheet">
+    <script src="/all/jQ/jquery-3.3.1.min.js"></script>
+    <script src="/all/jQui/jquery-ui.1.12.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#photos img').draggable({
+                revert: "invalid",
+                start: function (event, ui) {
+                    ui.helper.css('transform', 'rotate(5deg) scale(1.5)');
+                },
+                stop: function (event, ui) {
+                    ui.helper.css('transform', 'rotate(0deg) scale(1)');
+                },
+                zIndex: 100
+            });
+            $('#trashcan').droppable({
+                activeClass: 'highlight',
+                drop: function (event, ui) {
+                    ui.helper.hide('explode');
+                    $(this).addClass('trashFull');
+                }
+            }).click(function () {
+                if ($(this).hasClass('trashFull')) {
+                    $('#dialog-confirm').dialog('open');
+                }
+            });
+            $('#dialog-confirm')
+                .attr('title', 'Récupération de la corbeille')
+                .text('Récupérer les images')
+                .dialog({
+                    autoOpen: false,
+                    resizable: false,
+                    width: '20em',
+                    height: 'auto',
+                    position: {
+                        my: 'left top',
+                        at: 'right center',
+                        of: '#trashcan'
+                    },
+                    buttons: {
+                        'Confirmation': function() {
+                            $(this).dialog('close');
+                            $('#photos').find('[style*="display: none;"]')
+                                .fadeIn(400)
+                                .animate(
+                                    {left: 0, top: 0},
+                                    function () {
+                                        $(this).css('-webkit-transform', 'rotate(0deg) scale(1)').attr('style', '');
+                                    }
+                                );
+                            $('#trashcan').removeClass('trashFull');
+                        },
+                        'Abandon': function() {
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+        }); // end ready
+    </script>
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        JAVASCRIPT <span class="amp">&amp;</span> jQUERY: THE&nbsp;MISSING&nbsp;MANUAL
+    </header>
+    <div id="dialog-confirm"></div>
+    <div class="content">
+        <div class="main">
+            <h1>Trash It!</h1>
+        </div>
+        <div id="trashcan"></div>
+        <div id="photos">
+            <img src="IMG/SMALL/slide1_h.jpg">
+            <img src="IMG/SMALL/slide2_h.jpg">
+            <img src="IMG/SMALL/slide3_h.jpg">
+            <img src="IMG/SMALL/slide4_h.jpg">
+            <img src="IMG/SMALL/slide5_h.jpg">
+            <img src="IMG/SMALL/slide6_h.jpg">
+        </div>
+    </div>
+    <footer>
+        <p>JavaScript &amp; jQuery: The Missing Manual, 3rd Edition, by <a href="http://sawmac.com/">David McFarland</a>.
+            Published by <a href="http://oreilly.com/">O'Reilly Media, Inc</a>.</p>
+    </footer>
+</div>
+</body>
+</html>

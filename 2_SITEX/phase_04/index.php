@@ -10,7 +10,7 @@
 
 session_start();
 if (!isset($_SESSION['start'])) {
-    $_SESSION['start'] = date('YmdHms');
+    $_SESSION['start'] = date('YmdHis');
     $_SESSION['log'] = [];
 }
 
@@ -20,6 +20,13 @@ require_once "INC/dbConnect.inc.php";
 require_once "INC/mesFonctions.inc.php";
 require_once "/ALL/kint/kint.php";
 Kint::$return=true;
+require_once "INC/config.inc.php";
+
+if (!isset($_SESSION['config'])) {
+    $iCfg = new Config('INC/config.ini.php');
+    $_SESSION['config'] = $iCfg->load();
+    $_SESSION['loadTime'] = time();
+}
 
 if (isset($_GET['rq'])) {
     $_SESSION['log'][time()] = $_GET['rq'];
@@ -31,13 +38,14 @@ if (isset($_GET['rq'])) {
     $_SESSION['log'][time()] = 'resetF5';
 }
 
-
-
 // Variables initalisation
 
+$site = &$_SESSION['config']['SITE'];
+$logo = &$_SESSION['config']['LOGO'];
+
 $title = 'Accueil';
-$blogName = 'SITEX : phase 03 TPsem05';
-$logoPath = 'IMG/04.png';
+$blogName = $site['titre'];
+$logoPath = $site['images'] . '/' . $logo['logo'];
 $logoAlt = 'logo';
 $mainContent = 'Bienvenue';
 

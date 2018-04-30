@@ -28,7 +28,7 @@ $(document).ready(function() {
 
     // Create jQuery UI menu
     $('#menu').menu({
-        position: {my: "center top", at: "center bottom"}
+        position: {my: "center top+5", at: "center bottom+"}
     });
 
 
@@ -157,6 +157,18 @@ function gereRetour(retour) {
                 $(retour[action]).fadeIn(500);
                 break;
 
+            case 'formConfig':
+                $('#contenu').html(retour[action]);
+                $('#modifConfig').submit(function(evt) {
+                    evt.preventDefault();
+                    appelAjax(this);
+                });
+                break;
+
+            case 'layout':
+                var infos = JSON.parse(retour[action]);
+                $('#titre').html('<img id="logo" alt="logo" src="' + infos.logoPath + '" />' + infos.titre);
+                break;
 
             default:
                 console.log('Action inconnue : ' + action);

@@ -58,7 +58,7 @@ function tpSem05() {
 }
 
 function gereSubmit() {
-    if (!isset($_POST['senderId'])) $_REQUEST['senderId'] = '';
+    if (!isset($_POST['senderId'])) $_POST['senderId'] = '';
     switch ($_POST['senderId']) {
         case 'formTP05':
             require_once '/RES/appelAjax.php';
@@ -66,6 +66,16 @@ function gereSubmit() {
             toSend('#tp05result p', 'cacher');
             //toSend(monPrint_r(RES_appelAjax('coursGroup')), 'debug');
             sendMakeTable(RES_appelAjax('coursGroup'));
+            break;
+        case 'modifConfig':
+            $iCfg = new Config('INC/config.ini.php');
+            $iCfg->load();
+            $iCfg->save();
+            if ($iCfg->getSaveError() == 0) {
+                $_SESSION['config'] = $iCfg->getConfig();
+                $_SESSION['loadTime'] = time();
+                toSend(json_encode(['titre' => $_SESSION['config']['SITE']['titre'], 'logoPath' => $_SESSION['config']['SITE']['images'] . '/' . $_SESSION['config']['LOGO']['logo']]), 'layout');
+            }
             break;
         default:
             error('<dl><dt>Error in <b>' . __FUNCTION__ . '()</b></dt><dt>'. monPrint_r(["_REQUEST" => $_REQUEST, "_FILES" => $_FILES]) .'</dt></dl>');
@@ -81,16 +91,17 @@ function sendMakeTable($tab) {
 }
 
 function gereRequete($rq) {
-    kint(d($rq));
     switch ($rq) {
         case 'sem04': toSend('Cette fois je te reconnais (' . $rq . ')', 'display'); break;
         case 'sem03': toSend('Requête « ' . $rq . ' » : le TP03 est disponnible sur le serveur !', 'display'); break;
         case 'TPsem05': tpSem05(); break;
         case 'formSubmit': gereSubmit(); break;
         case 'displaySession':
+            $_SESSION['log'][time()] = $rq;
             debug(d($_SESSION['start']));
             debug(d($_SESSION['log']));
-            $_SESSION['log'][time()] = $rq;
+            debug(d($_SESSION['config']));
+            debug(d($_SESSION['loadTime']));
             break;
         case 'clearLog':
             $_SESSION['log'] = [];
@@ -100,10 +111,15 @@ function gereRequete($rq) {
             break;
         case 'resetSession':
             session_unset();
-            $_SESSION['start'] = date('YmdHms');
+            $_SESSION['start'] = date('YmdHis');
             $_SESSION['log'][time()] = $rq;
             debug(d($_SESSION['start']));
             debug(d($_SESSION['log']));
+            break;
+        case 'config':
+            $iConfig = new Config('INC/config.ini.php');
+            $iConfig->load();
+            toSend($iConfig->getForm(), "formConfig");
             break;
         default:
             callResAjax($rq);

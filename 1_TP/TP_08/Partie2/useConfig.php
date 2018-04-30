@@ -20,8 +20,16 @@ if (isset($_POST)) {
         echo '<pre>' . print_r($_POST, 1) . '</pre>';
         */
 
+        $oldConfig = chargeConfig('config.ini.php');
 
-        foreach (array_replace_recursive(chargeConfig('config.ini.php'), $_POST) as $k => $v) {
+        foreach ($oldConfig as $key => $value) {
+            foreach ($value as $k => $v) {
+                if (gettype($v) == 'array') $oldConfig[$key][$k] = [];
+            }
+        }
+
+
+        foreach (array_replace_recursive($oldConfig, $_POST) as $k => $v) {
             $out[] = '[' . $k . ']';
             foreach ($v as $item => $value) {
 
@@ -67,7 +75,7 @@ function afficheConfig($config) {
         $oKey = ['min', 'max', 'pas', 'choix'];
 
         foreach ($oKey as $key) {
-            $$key = isset($v[$key]) ? $v[$key] : null;
+            $$key = isset($v[$key]) ? $v[$key] : [];
             unset($v[$key]);
         }
 

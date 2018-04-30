@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Crop Box</title>
+    <link href="/all/jQui/jquery-ui.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/style.css" type="text/css" />
+    <style>
+        .container
+        {
+            position: absolute;
+            top: 10%; left: 10%; right: 0; bottom: 0;
+        }
+        .action
+        {
+            width: 400px;
+            height: 30px;
+            margin: 10px 0;
+        }
+        .cropped>img
+        {
+            margin-right: 10px;
+        }
+        #base {
+            text-align: right;
+        }
+        #base input:first-of-type {
+            text-align: left;
+        }
+        #drop fieldset {
+            height: 100px;
+            width: 100px;
+            border: 1px dotted gray;
+            display: inline-block;
+        }
+        #drop {
+            margin-top: .5em;
+        }
+    </style>
+</head>
+<body>
+
+<script src="/all/jQ/jquery-1.12.3.min.js"></script>
+<script src="/all/jQui/jquery-ui.1.12.1.min.js"></script>
+<script src="JS/cropbox.js"></script>
+<div class="container">
+    <div class="imageBox">
+        <div class="thumbBox"></div>
+        <div class="spinner" style="display: none">Loading...</div>
+    </div>
+    <div class="action">
+        <div id="base">
+            <input type="file" id="file" style="float:left; width: 250px">
+            <input type="button" id="btnZoomOut" value="-">
+            <input type="button" id="btnZoomIn" value="+">
+            <input type="button" id="btnCrop" value="Crop">
+        </div>
+        <div id="drop">
+            <fieldset id="avatar"></fieldset>
+            <fieldset id="trash"></fieldset>
+            <fieldset id="send"></fieldset>
+        </div>
+    </div>
+    <div class="cropped">
+
+    </div>
+</div>
+<script type="text/javascript">
+    $(window).load(function() {
+        var options =
+            {
+                thumbBox: '.thumbBox',
+                spinner: '.spinner',
+                imgSrc: 'avatar.png'
+            };
+        var cropper;
+        $('#file').on('change', function(){
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                options.imgSrc = e.target.result;
+                cropper = $('.imageBox').cropbox(options);
+            };
+            reader.readAsDataURL(this.files[0]);
+            this.files = null;
+        });
+        $('#btnCrop').on('click', function(){
+            var img = cropper.getDataURL()
+            $('.cropped').append('<img src="'+img+'">');
+        });
+        $('#btnZoomIn').on('click', function(){
+            cropper.zoomIn();
+        });
+        $('#btnZoomOut').on('click', function(){
+            cropper.zoomOut();
+        });
+        $('#drop fieldset').html('<legend>' + $(this).attr('id') + '</legend>');
+    });
+</script>
+
+</body>
+</html>

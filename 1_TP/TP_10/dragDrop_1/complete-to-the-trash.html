@@ -45,7 +45,7 @@
                         of: '#trashcan'
                     },
                     buttons: {
-                        'Confirmation': function() {
+                        'Confirmation': function () {
                             $(this).dialog('close');
                             $('#photos').find('[style*="display: none;"]')
                                 .fadeIn(400)
@@ -57,7 +57,7 @@
                                 );
                             $('#trashcan').removeClass('trashFull');
                         },
-                        'Abandon': function() {
+                        'Abandon': function () {
                             $(this).dialog('close');
                         }
                     }

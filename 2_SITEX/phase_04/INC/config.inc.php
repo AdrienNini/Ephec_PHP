@@ -74,6 +74,7 @@ class Config
 
         unset($_POST['rq']);
         unset($_POST['senderId']);
+        unset($_POST['envoie']);
 
         $out = [];
         $error = 0;

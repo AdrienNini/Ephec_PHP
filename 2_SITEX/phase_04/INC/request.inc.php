@@ -98,10 +98,9 @@ function gereRequete($rq) {
         case 'formSubmit': gereSubmit(); break;
         case 'displaySession':
             $_SESSION['log'][time()] = $rq;
-            debug(d($_SESSION['start']));
-            debug(d($_SESSION['log']));
-            debug(d($_SESSION['config']));
-            debug(d($_SESSION['loadTime']));
+            debug(d($_SESSION));
+            //debug(d($_SESSION['start']));
+            //debug(d($_SESSION['log']));
             break;
         case 'clearLog':
             $_SESSION['log'] = [];

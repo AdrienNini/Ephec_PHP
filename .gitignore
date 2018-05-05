@@ -2,4 +2,4 @@
 .DS_Store
 dbConnect.inc.php
 web.config
-*/perso.config.ini.php
+perso.config.ini.php

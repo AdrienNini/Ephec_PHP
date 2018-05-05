@@ -28,7 +28,7 @@ $(document).ready(function() {
 
     // Create jQuery UI menu
     $('#menu').menu({
-        position: {my: "center top+5", at: "center bottom+"}
+        position: {my: "center top+5", at: "center bottom+5"}
     });
 
 
@@ -165,11 +165,50 @@ function gereRetour(retour) {
                 });
                 break;
 
+            case 'formLogin':
+                $('#contenu').html(retour[action]);
+                $('#formLogin').submit(function(evt) {
+                    evt.preventDefault();
+                    appelAjax(this);
+                });
+                $('#logMdPP').click(function(evt) {
+                    appelAjax(this);
+                    evt.preventDefault();
+                });
+                break;
+
             case 'layout':
                 var infos = JSON.parse(retour[action]);
                 $('#titre').html('<img id="logo" alt="logo" src="' + infos.logoPath + '" />' + infos.titre);
                 break;
 
+            case 'userConnu':
+                myData['user'] = JSON.parse(retour[action]);
+                $('#contenu').html('Bienvenue ' + myData['user'].uPseudo);
+                $('#menu a[href="gestLog.html"]').text('Déconnexion');
+                $('body').css('background', '#4C4F22');
+                break;
+
+            case 'logout':
+                delete (myData['user']);
+                $('body').css('background', '');
+                $('#menu a[href="gestLog.html"]').text('Connexion');
+                $('#contenu').html('<div title="Déconnnexion">' + retour[action] + '</div>').find('div').dialog({
+                    modal: true,
+                    width: 100,
+                    height: 70,
+                    classes: {
+                        'ui-dialog': 'dialOk'
+                    },
+                    resizable: false,
+                    dragable: false,
+                    position: {
+                        my: 'right top',
+                        at: 'center bottom+5',
+                        of: '#menu a[href="gestLog.html"]'
+                    }
+                });
+                break;
             default:
                 console.log('Action inconnue : ' + action);
                 console.log(retour[action]);

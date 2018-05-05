@@ -1,4 +1,6 @@
-<section id="tpsem05">
+<?php
+if (count(get_included_files()) == 1) header("Location: ../");
+?><section id="tpsem05">
     <form action="" name="formSearch" id="formSearch">
         <fieldset id="tp05search">
             <legend>Groupe recherché</legend>

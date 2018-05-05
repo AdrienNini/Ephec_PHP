@@ -114,7 +114,7 @@
 }
 
 
-/* ------- EROOR ------- */
+/* ------- ERROR ------- */
 
 #gestion {
     clear: both;
@@ -210,7 +210,19 @@
 }
 
 
+/* ------ LOGOUT DIALOG ------- */
 
+.dialOk {
+    background: #eaffeb;
+    font-size: 1em;
+    -webkit-box-shadow: 0 0 0.5em 0.15em rgba(255,255,255,0.5);
+    -moz-box-shadow: 0 0 0.5em 0.15em rgba(255,255,255,0.5);
+    box-shadow: 0 0 0.5em 0.15em rgba(255,255,255,0.5);
+}
+
+.dialOk .ui-dialog-titlebar {
+    background: lawngreen;
+}
 
 
 /* ------- FOOTER ------- */

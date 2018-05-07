@@ -13,7 +13,7 @@ $(document).ready(function() {
         $(this).attr('target', '_blanck');
     });
 
-    $("a[href='index.html']").focus();
+    $("a[href='datatables_1.html']").focus();
 
     /**
      * Event Managment

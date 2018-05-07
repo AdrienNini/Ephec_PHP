@@ -12,6 +12,17 @@ require_once '/all/kint/kint.php';
 function getProfils($id) {
     $iDB = new Db();
     $user = $iDB->call('userProfil', [$id]);
+    return $user;
 }
 
-d('id = 8', getProfils(8));
+$id = 8;
+
+d('id = ' . $id, $profiles = getProfils($id));
+
+echo 'Liste des profils de l\'utilisateur d\'id ' . $id . '<br>';
+
+foreach ($profiles as $prof) {
+    echo '<img title="' . $prof['pAbrev'] . '" src="' . $prof['pIcon'] . '">' . $prof['pNom'] . '<br>';
+}
+
+

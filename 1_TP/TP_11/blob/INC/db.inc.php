@@ -6,6 +6,8 @@
  * Time: 19:35
  */
 
+if (count(get_included_files()) == 1) die("--access denied--");
+
 require_once 'INC/config.inc.php';
 
 class Db

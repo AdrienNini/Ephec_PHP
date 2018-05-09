@@ -100,9 +100,9 @@ function gereSubmit() {
             break;
         case 'formLogin':
             $iDB = new Db();
-            $user = $iDB->call('whoIs', array_values($_POST['login']))[0];
+            $user = $iDB->call('whoIs', array_values($_POST['login']));
             if ($user) if (isset($user['__ERR__'])) error($user['__ERR__']);
-                        else authentication($user);
+                        else authentication($user[0]);
             else debug('Pseudo et/ou mot de passe incorret(s) !');
             break;
         default:

@@ -19,7 +19,7 @@
     <script src="JS/index.js"></script>
 </head>
 
-<body>
+<body style="background-color: <?= $style ?>;">
 
 <div id="global">
 
@@ -41,7 +41,7 @@
                         <li><a href="resetSession.html">redémarre</a></li>
                     </ul>
                 </li>
-                <li><a href="gestLog.html">Connexion</a></li>
+                <li><a href="gestLog.html"><?= $gestLog ?></a></li>
             </ul>
         </nav><!-- #navigation -->
     </header><!-- #entete -->

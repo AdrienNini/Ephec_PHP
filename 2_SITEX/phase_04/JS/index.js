@@ -57,8 +57,7 @@ $(document).ready(function() {
     // Hide aside#error on doubble click
     $('#gestion aside').dblclick(function() {
         $(this).fadeOut(500);
-    })
-
+    });
 
 });
 

@@ -58,6 +58,7 @@ class Config
 
         // Unset Error type
         unset($config['ERREUR']);
+        unset($config['DB']);
 
         foreach ($config as $k => $v) {
             $out[] = '<fieldset><legend>' . $k . '</legend>';

@@ -62,5 +62,5 @@ function creeDroits() {
         case 'ano': $listeDesDroits = array_merge($listeDesDroits, $_SESSION['droitsDeBase']);
     }
     $_SESSION['user']['droits'] = $listeDesDroits;
-    kint(d($_SESSION['user']));
+    //kint(d($_SESSION['user']));
 }

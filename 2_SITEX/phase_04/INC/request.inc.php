@@ -11,35 +11,6 @@ if (count(get_included_files()) == 1) die("--access denied--");
 require_once 'mesFonctions.inc.php';
 require_once 'db.inc.php';
 
-function display($txt) {
-    global $toSend;
-    if (!isset($toSend['display'])) $toSend['display'] = "";
-    $toSend['display'] .= $txt;
-}
-
-function error($txt) {
-    global $toSend;
-    if (!isset($toSend['error'])) $toSend['error'] = "";
-    $toSend['error'] .= $txt;
-}
-
-function debug($txt) {
-    global $toSend;
-    if (!isset($toSend['debug'])) $toSend['debug'] = "";
-    $toSend['debug'] .= $txt;
-}
-
-function kint($txt) {
-    global $toSend;
-    if (!isset($toSend['kint'])) $toSend['kint'] = "";
-    $toSend['kint'] .= $txt;
-}
-
-function toSend($txt, $action = 'display') {
-    global $toSend;
-    if (!isset($toSend[$action])) $toSend[$action] = "";
-    $toSend[$action] .= $txt;
-}
 
 function callResAjax($rq) {
     require_once '/RES/appelAjax.php';
@@ -75,6 +46,7 @@ function authentication($user) {
     $profile = $iDB->call('userProfil', [$user['uid']]);
     $_SESSION['user']['profile'] = $profile;
     toSend(json_encode($_SESSION['user']), 'userConnu');
+    creeDroits();
     //return kint(d($_SESSION['user']));
 }
 
@@ -118,18 +90,32 @@ function sendMakeTable($tab) {
     $toSend['makeTable'] = $tab;
 }
 
+function peuPas($req) {
+    if ($req == 'formSubmit' && isset($_POST['senderId'])) {
+        $req = $_POST['senderId'];
+    }
+
+    if (!in_array($req, $_SESSION['droits'])) {
+        toSend('Droits Insuffisants !', 'peuPas');
+        return true;
+    }
+    return false;
+}
+
 function gereRequete($rq) {
+    if (peuPas($rq)) return -1;
+
     switch ($rq) {
         case 'sem04': toSend('Cette fois je te reconnais (' . $rq . ')', 'display'); break;
         case 'sem03': toSend('Requête « ' . $rq . ' » : le TP03 est disponnible sur le serveur !', 'display'); break;
         case 'TPsem05': tpSem05(); break;
-        case 'gestLog': $f = 'kLog' . (isset($_SESSION['user']) ? 'out': 'in'); $f(); break;
+        case 'gestLog': $f = 'kLog' . (isAuthenticated() ? 'out': 'in'); $f(); break;
         case 'formSubmit': gereSubmit(); break;
         case 'displaySession':
             $_SESSION['log'][time()] = $rq;
-            debug(d($_SESSION));
-            //debug(d($_SESSION['start']));
-            //debug(d($_SESSION['log']));
+            //debug(d($_SESSION));
+            debug(d($_SESSION['start']));
+            debug(d($_SESSION['log']));
             break;
         case 'clearLog':
             $_SESSION['log'] = [];
@@ -165,7 +151,3 @@ function gereRequete($rq) {
 
     }
 }
-// echo gereRequete('yolo');
-
-
-

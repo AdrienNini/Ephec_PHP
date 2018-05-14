@@ -21,6 +21,8 @@ require_once "INC/mesFonctions.inc.php";
 require_once "/ALL/kint/kint.php";
 Kint::$return=true;
 require_once "INC/config.inc.php";
+require_once "INC/droits.inc.php";
+require_once "INC/sender.inc.php";
 
 if (!isset($_SESSION['config'])) {
     $iCfg = new Config('INC/config.ini.php');
@@ -28,9 +30,10 @@ if (!isset($_SESSION['config'])) {
     $_SESSION['loadTime'] = time();
 }
 
+creeDroits();
+
 if (isset($_GET['rq'])) {
     $_SESSION['log'][time()] = $_GET['rq'];
-    $toSend = [];
     require_once "INC/request.inc.php";
     gereRequete($_GET['rq']);
     die(json_encode($toSend));
@@ -55,7 +58,7 @@ $auteur = "<a href=mailto:$mail title=$mail>". $__INFOS__['nom'] ." ". $__INFOS_
 $gestLog = 'Connexion';
 $style = '';
 
-if (isset($_SESSION['user'])) {
+if (isAuthenticated()) {
     $gestLog = 'Déconnexion';
     $style = '#4C4F22';
     $mainContent = 'Page rafraichie: vous êtes toujours connecté ' . $_SESSION['user']['uPseudo'] . ' !';

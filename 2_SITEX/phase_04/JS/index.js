@@ -208,6 +208,24 @@ function gereRetour(retour) {
                     }
                 });
                 break;
+
+            case 'peuPas':
+                $('#contenu').html('<div title="Gestion des droits">' + retour[action] + '</div>').find('div').dialog({
+                    modal: true,
+                    width: '12em',
+                    height: 70,
+                    classes: {
+                        'ui-dialog': 'dialKo'
+                    },
+                    resizable: false,
+                    dragable: false,
+                    position: {
+                        my: 'left top',
+                        at: 'left top',
+                        of: '#contenu'
+                    }
+                });
+                break;
             default:
                 console.log('Action inconnue : ' + action);
                 console.log(retour[action]);

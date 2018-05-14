@@ -104,7 +104,7 @@
 }
 
 #sMenu {
-    border: darkorange 0.05em;
+    border: 0.05em solid darkorange;
     border-radius: .5em;
 }
 
@@ -224,6 +224,20 @@
     background: lawngreen;
 }
 
+/* ------ GESTION DROIT DIALOG ------- */
+
+.dialKo {
+    background: #FFEEEE;
+    font-size: 1em;
+    -webkit-box-shadow: 0 0 0.5em 0.15em rgba(255,255,255,0.5);
+    -moz-box-shadow: 0 0 0.5em 0.15em rgba(255,255,255,0.5);
+    box-shadow: 0 0 0.5em 0.15em rgba(255,255,255,0.5);
+}
+
+.dialKo .ui-dialog-titlebar {
+    background: #FC1D1C;
+    color: yellow;
+}
 
 /* ------- FOOTER ------- */
 

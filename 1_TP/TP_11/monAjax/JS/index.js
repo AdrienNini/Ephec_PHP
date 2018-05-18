@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    $.get('charge.php', traitement);
+    $.ajax('charge.php').done(traitement);
 
 });
 

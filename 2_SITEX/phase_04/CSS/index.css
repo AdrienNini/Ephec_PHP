@@ -114,6 +114,16 @@
 }
 
 
+/* ------- BANDEAU ------- */
+
+#enReact {
+    color: yellow;
+    background: #F00;
+    padding: 0.15em;
+    padding-left: 6.5em;
+    font-weight: bold;
+}
+
 /* ------- ERROR ------- */
 
 #gestion {

@@ -44,6 +44,9 @@
                 <li><a href="gestLog.html"><?= $gestLog ?></a></li>
             </ul>
         </nav><!-- #navigation -->
+        <footer>
+            <?= $bandeau ?>
+        </footer>
     </header><!-- #entete -->
 
     <aside id="sous-menu" class="menu">

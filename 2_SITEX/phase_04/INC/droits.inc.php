@@ -16,8 +16,8 @@ function isAdmin() {
     return isAuthenticated() && in_array('admin', $_SESSION['user']['lesProfils']);
 }
 
-function isActiv() {
-    return isAuthenticated() && in_array('acti', $_SESSION['user']['lesStatuts']);
+function isSousAdmin() {
+    return isAuthenticated() && in_array('sAdmin', $_SESSION['user']['lesProfils']);
 }
 
 function isReactiv() {
@@ -29,7 +29,7 @@ function isMdpp() {
 }
 
 function isEdit() {
-    return isAdmin() || !(isActiv() || isReactiv());
+    return isAdmin() || isReactiv();
 }
 
 function creeDroits() {
@@ -55,12 +55,30 @@ function creeDroits() {
 
     $listeDesDroits = [];
     switch($listeDesProfils[0]) {
-        case 'admin': $listeDesDroits = array_merge($listeDesDroits, ['userProfil', 'modifConfig', 'displaySession', 'clearLog', 'resetSession']);
+        case 'admin': $listeDesDroits = array_merge($listeDesDroits, ['modifConfig', 'displaySession', 'clearLog', 'resetSession']);
         case 'sAdmin': $listeDesDroits = array_merge($listeDesDroits, ['testDB', 'config']);
         case 'modo': $listeDesDroits = array_merge($listeDesDroits, ['tableau', 'moderation']);
-        case 'memb': $listeDesDroits = array_merge($listeDesDroits, ['sem02', 'sem03', 'sem04', 'TPsem05', 'formTP05']);
+        case 'memb': $listeDesDroits = array_merge($listeDesDroits, ['sem02', 'sem03', 'sem04', 'TPsem05', 'formTP05', 'userProfil']);
         case 'ano': $listeDesDroits = array_merge($listeDesDroits, $_SESSION['droitsDeBase']);
     }
     $_SESSION['user']['droits'] = $listeDesDroits;
-    //kint(d($_SESSION['user']));
+    if (!isReactiv()) return -2;
+
+    $perdu = [
+        'memb' => ['formTP05'],
+        'modo' => ['moderation'],
+        'sAdmin' => ['config']
+    ];
+
+    $listeDesDroitsPerdus = [];
+    foreach ($listeDesProfils as $profil) {
+        if (isset($perdu[$profil])) $listeDesDroitsPerdus = array_merge($listeDesDroitsPerdus, $perdu[$profil]);
+    }
+
+    if (!empty($listeDesDroitsPerdus)) {
+        $_SESSION['user']['droitsPerdus'] = $listeDesDroitsPerdus;
+        $_SESSION['user']['droits'] = array_diff($_SESSION['user']['droits'], $_SESSION['user']['droitsPerdus']);
+    }
+
+    //debug(d($_SESSION['user']));
 }

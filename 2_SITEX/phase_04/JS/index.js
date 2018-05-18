@@ -207,10 +207,11 @@ function gereRetour(retour) {
                         of: '#menu a[href="gestLog.html"]'
                     }
                 });
+                $('#entete footer #enReact').remove();
                 break;
 
-            case 'peuPas':
-                $('#contenu').html('<div title="Gestion des droits">' + retour[action] + '</div>').find('div').dialog({
+            case 'peutPas':
+                $('#contenu').after('<div title="Gestion des droits">' + retour[action] + '</div>').next('div').dialog({
                     modal: true,
                     width: '12em',
                     height: 70,
@@ -225,6 +226,9 @@ function gereRetour(retour) {
                         of: '#contenu'
                     }
                 });
+                break;
+            case 'estRéac':
+                $('#entete footer').append(retour[action]);
                 break;
             default:
                 console.log('Action inconnue : ' + action);

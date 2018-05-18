@@ -41,12 +41,23 @@ function kLogout() {
 }
 
 function authentication($user) {
-    $_SESSION['user'] = $user;
     $iDB = new Db();
-    $profile = $iDB->call('userProfil', [$user['uid']]);
-    $_SESSION['user']['profile'] = $profile;
+    $profil = $iDB->call('userProfil', [$user['uid']]);
+    $isActiv = false;
+    foreach ($profil as $p) if ($p['pAbrev'] == 'acti') $isActiv = true;
+    if ($isActiv) {
+        toSend('Vous devez activer votre compte (Cfr. email envoyé)', 'peutPas');
+        return -1;
+    }
+
+    $_SESSION['user'] = $user;
+    $_SESSION['user']['profile'] = $profil;
     toSend(json_encode($_SESSION['user']), 'userConnu');
     creeDroits();
+    if (isReactiv()) {
+        toSend('Vous n\'avez pas encore validé votre nouveau mail (Cfr. mail de confirmation envoyé à la nouvelle adresse mail)', 'peutPas');
+        toSend('<div id="enReact">Vous devez valider votre nouveau mail (Cfr. mail de confirmation)</div>', 'estRéac');
+    }
     //return kint(d($_SESSION['user']));
 }
 
@@ -90,20 +101,37 @@ function sendMakeTable($tab) {
     $toSend['makeTable'] = $tab;
 }
 
-function peuPas($req) {
+function peutPas($req) {
     if ($req == 'formSubmit' && isset($_POST['senderId'])) {
         $req = $_POST['senderId'];
     }
 
-    if (!in_array($req, $_SESSION['droits'])) {
-        toSend('Droits Insuffisants !', 'peuPas');
-        return true;
+    $peutPas = !in_array($req, $_SESSION['droits']);
+    $msg = 'Droits Insuffisants !';
+
+    if ($peutPas) {
+        if (isReactiv()) {
+            if (isset($_SESSION['user']['droitsPerdus'])) {
+                if (in_array($req, $_SESSION['user']['droitsPerdus'])) {
+                    if (isSousAdmin()) {
+                        $msg = 'Valider votre nouveau mail (Cfr. mail envoyé) pour ne plus voir ce message';
+                        $peutPas = false;
+                    } else {
+                        $msg = 'Valider votre nouveau mail (Cfr. mail envoyé) pour récupérer ce droit';
+                    }
+                }
+            } else {
+                $msg = 'Droits Insuffisants !';
+            }
+        }
+        toSend($msg, 'peutPas');
     }
-    return false;
+
+    return $peutPas;
 }
 
 function gereRequete($rq) {
-    if (peuPas($rq)) return -1;
+    if (peutPas($rq)) return -1;
 
     switch ($rq) {
         case 'sem04': toSend('Cette fois je te reconnais (' . $rq . ')', 'display'); break;

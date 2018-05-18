@@ -58,6 +58,11 @@ $auteur = "<a href=mailto:$mail title=$mail>". $__INFOS__['nom'] ." ". $__INFOS_
 $gestLog = 'Connexion';
 $style = '';
 
+$bandeau = '';
+if (isReactiv()) {
+    $bandeau = '<div id="enReact">Vous devez valider votre nouveau mail (Cfr. mail de confirmation)</div>';
+}
+
 if (isAuthenticated()) {
     $gestLog = 'Déconnexion';
     $style = '#4C4F22';

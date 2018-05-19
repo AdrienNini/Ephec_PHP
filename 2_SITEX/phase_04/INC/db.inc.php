@@ -17,7 +17,7 @@ class Db
 
     public function __construct()
     {
-        $iCfg = new Config('perso.config.ini.php');
+        $iCfg = new Config('config.ini.php');
         $config = $iCfg->load();
         $this->db = $config['DB'];
         try {

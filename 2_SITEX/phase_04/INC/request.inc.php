@@ -54,9 +54,14 @@ function authentication($user) {
     $_SESSION['user']['profile'] = $profil;
     toSend(json_encode($_SESSION['user']), 'userConnu');
     creeDroits();
+
     if (isReactiv()) {
         toSend('Vous n\'avez pas encore validé votre nouveau mail (Cfr. mail de confirmation envoyé à la nouvelle adresse mail)', 'peutPas');
         toSend('<div id="enReact">Vous devez valider votre nouveau mail (Cfr. mail de confirmation)</div>', 'estRéac');
+    }
+
+    if (isMdpp()) {
+        toSend('Vous aviez demandé un changement de mot de passe mais manifestement vous avez retrouvé votre mot de passe. Nous annulons votre demande', 'peutPas');
     }
     //return kint(d($_SESSION['user']));
 }

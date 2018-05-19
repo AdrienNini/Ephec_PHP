@@ -211,7 +211,7 @@ function gereRetour(retour) {
                 break;
 
             case 'peutPas':
-                $('#contenu').after('<div title="Gestion des droits">' + retour[action] + '</div>').next('div').dialog({
+                $('#debug').html('<div title="Gestion des droits">' + retour[action] + '</div>').find('div').dialog({
                     modal: true,
                     width: '12em',
                     height: 70,

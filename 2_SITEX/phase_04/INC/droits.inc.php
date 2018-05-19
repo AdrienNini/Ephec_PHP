@@ -62,7 +62,7 @@ function creeDroits() {
         case 'ano': $listeDesDroits = array_merge($listeDesDroits, $_SESSION['droitsDeBase']);
     }
     $_SESSION['user']['droits'] = $listeDesDroits;
-    if (!isReactiv()) return -2;
+    if (!isReactiv() || isAdmin()) return -2;
 
     $perdu = [
         'memb' => ['formTP05'],
@@ -81,4 +81,25 @@ function creeDroits() {
     }
 
     //debug(d($_SESSION['user']));
+}
+
+function creeMenu() {
+    $gestLog = isAuthenticated() ? 'Déconnexion': 'Connexion';
+    $menu = <<<MENU
+            <li><a href="index.html">Accueil</a></li>
+                <li><a href="userProfil.html">Profil</a></li>
+                <li><a href="moderation.html">Modération</a></li>
+                <li><a href="config.html">Configuration</a></li>
+                <li> Session
+                    <ul id="sMenu" class="menu">
+                        <li><a href="displaySession.html">affiche</a></li>
+                        <li><a href="clearLog.html">efface log</a></li>
+                        <li><a href="resetSession.html">redémarre</a></li>
+                    </ul>
+                </li>
+                <li><a href="gestLog.html">$gestLog</a></li>
+MENU;
+
+    return $menu;
+
 }

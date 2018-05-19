@@ -55,7 +55,6 @@ $mainContent = 'Bienvenue';
 $mail = ___MATRICULE___ . '@students.ephec.be';
 $auteur = "<a href=mailto:$mail title=$mail>". $__INFOS__['nom'] ." ". $__INFOS__['prenom'] ."@2018</a>";
 
-$gestLog = 'Connexion';
 $style = '';
 
 $bandeau = '';
@@ -64,7 +63,6 @@ if (isReactiv()) {
 }
 
 if (isAuthenticated()) {
-    $gestLog = 'Déconnexion';
     $style = '#4C4F22';
     $mainContent = 'Page rafraichie: vous êtes toujours connecté ' . $_SESSION['user']['uPseudo'] . ' !';
 }

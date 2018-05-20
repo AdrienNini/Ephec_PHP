@@ -38,6 +38,7 @@ function kLogin() {
 function kLogout() {
     toSend('Au revoir <b>' . $_SESSION['user']['uPseudo'] . '</b> !', 'logout');
     unset($_SESSION['user']);
+    toSend(creeMenu(), 'newMenu');
 }
 
 function authentication($user) {
@@ -63,6 +64,9 @@ function authentication($user) {
     if (isMdpp()) {
         toSend('Vous aviez demandé un changement de mot de passe mais manifestement vous avez retrouvé votre mot de passe. Nous annulons votre demande', 'peutPas');
     }
+
+    toSend(creeMenu(), 'newMenu');
+
     //return kint(d($_SESSION['user']));
 }
 

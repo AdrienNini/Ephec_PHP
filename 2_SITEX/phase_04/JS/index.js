@@ -184,14 +184,12 @@ function gereRetour(retour) {
             case 'userConnu':
                 myData['user'] = JSON.parse(retour[action]);
                 $('#contenu').html('Bienvenue ' + myData['user'].uPseudo);
-                $('#menu a[href="gestLog.html"]').text('Déconnexion');
                 $('body').css('background', '#4C4F22');
                 break;
 
             case 'logout':
                 delete (myData['user']);
                 $('body').css('background', '');
-                $('#menu a[href="gestLog.html"]').text('Connexion');
                 $('#contenu').html('<div title="Déconnnexion">' + retour[action] + '</div>').find('div').dialog({
                     modal: true,
                     width: 100,
@@ -229,6 +227,19 @@ function gereRetour(retour) {
                 break;
             case 'estRéac':
                 $('#entete footer').append(retour[action]);
+                break;
+            case 'newMenu':
+                $('#menu').replaceWith("<ul id='menu' class='menu'>" + retour[action] + "</ul>");
+                $('#menu').menu({
+                    position: {my: "center top+5", at: "center bottom+5"}
+                });
+
+                $('.menu a').click(function (event) {
+                    event.preventDefault();
+                    $('.menu a').removeClass('selected');
+                    $(this).toggleClass('selected');
+                    appelAjax(this);
+                });
                 break;
             default:
                 console.log('Action inconnue : ' + action);

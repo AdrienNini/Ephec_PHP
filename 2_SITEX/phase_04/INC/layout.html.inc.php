@@ -38,17 +38,6 @@
         </footer>
     </header><!-- #entete -->
 
-    <aside id="sous-menu" class="menu">
-        <ul>
-            <li><a href="tableau.html">JSON 00</a></li>
-            <li><a href="sem02.html">TP02</a></li>
-            <li><a href="sem03.html">TP03</a></li>
-            <li><a href="sem04.html">TP04</a></li>
-            <li><a href="TPsem05.html">TP05</a></li>
-            <li><a href="testDB.html" id="test">test</a></li>
-        </ul>
-    </aside><!-- #navigation -->
-
     <section id="contenu">
         <?= $mainContent ?>
     </section><!-- #contenu -->

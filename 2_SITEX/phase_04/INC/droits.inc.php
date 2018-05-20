@@ -84,22 +84,70 @@ function creeDroits() {
 }
 
 function creeMenu() {
-    $gestLog = isAuthenticated() ? 'Déconnexion': 'Connexion';
-    $menu = <<<MENU
-            <li><a href="index.html">Accueil</a></li>
-                <li><a href="userProfil.html">Profil</a></li>
-                <li><a href="moderation.html">Modération</a></li>
-                <li><a href="config.html">Configuration</a></li>
-                <li> Session
-                    <ul id="sMenu" class="menu">
-                        <li><a href="displaySession.html">affiche</a></li>
-                        <li><a href="clearLog.html">efface log</a></li>
-                        <li><a href="resetSession.html">redémarre</a></li>
+    $gestLog = 'Connexion';
+    $profil = 'ano';
+    if (isAuthenticated()) {
+        $gestLog = 'Déconnexion';
+        $profil = $_SESSION['user']['lesProfils'][0];
+    }
+    $menu = [];
+    array_unshift($menu, <<<MENU
+            <li><a href="gestLog.html">$gestLog</a></li>
+MENU
+    );
+    switch ($profil) {
+        case 'admin':
+        case 'sAdmin':
+            array_unshift($menu, <<<MENU
+                <li>Admin
+                    <ul class="menu sMenu">
+                        <li><a href="testDB.html" id="test">test</a></li>
+                        <li><a href="config.html">Configuration</a></li>
+                        <li>Session
+                            <ul class="menu sMenu">
+                                <li><a href="displaySession.html">affiche</a></li>
+                                <li><a href="clearLog.html">efface log</a></li>
+                                <li><a href="resetSession.html">redémarre</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
-                <li><a href="gestLog.html">$gestLog</a></li>
-MENU;
+MENU
+            );
+        case 'modo':
+            array_unshift($menu, <<<MENU
+                <li>Modo
+                    <ul class="menu sMenu">
+                        <li><a href="tableau.html">JSON 00</a></li>
+                         <li><a href="moderation.html">Modération</a></li>
+                    </ul>
+                </li>          
+MENU
+            );
+        case 'memb':
+            array_unshift($menu, <<<MENU
+                <li>Membre
+                    <ul class="menu sMenu">
+                        <li><a href="userProfil.html">Profil</a></li>
+                        <li>TP
+                            <ul class="menu sMenu">
+                                <li><a href="sem02.html">TP02</a></li>
+                                <li><a href="sem03.html">TP03</a></li>
+                                <li><a href="sem04.html">TP04</a></li>
+                                <li><a href="TPsem05.html">TP05</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+MENU
+            );
+        case 'ano':
+            array_unshift($menu, <<<MENU
+                <li><a href="index.html">Accueil</a></li>
+MENU
+            );
+    }
 
-    return $menu;
+    return implode("\n", $menu);
 
 }

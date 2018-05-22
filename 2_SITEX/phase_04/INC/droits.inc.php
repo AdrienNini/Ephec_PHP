@@ -8,30 +8,62 @@
 
 if (count(get_included_files()) == 1) die("--access denied--");
 
+/* ---------- GESTION DES STATUTS ---------- */
+
+/**
+ * Vérifie qu'un utilisateur est connecté.
+ * @return bool
+ */
 function isAuthenticated() {
     return isset($_SESSION['user']);
 }
 
+/**
+ * Vérifie si l'utilisateur à un profil administrateur
+ * @return bool
+ */
 function isAdmin() {
     return isAuthenticated() && in_array('admin', $_SESSION['user']['lesProfils']);
 }
 
+/**
+ * Vérifie si l'utilisateur à un profil sous-administrateur
+ * @return bool
+ */
 function isSousAdmin() {
     return isAuthenticated() && in_array('sAdmin', $_SESSION['user']['lesProfils']);
 }
 
+/**
+ * Vérifie si l'utilisateur est à un statut de réactivation
+ * @return bool
+ */
 function isReactiv() {
     return isAuthenticated() && in_array('réac', $_SESSION['user']['lesStatuts']);
 }
 
+/**
+ * Vérifie si l'utilisateur est à un status de mot de passe perdu
+ * @return bool
+ */
 function isMdpp() {
     return isAuthenticated() && in_array('mdpp', $_SESSION['user']['lesStatuts']);
 }
 
+/**
+ * Vérifie si l'utilisateur peut éditer les informations du site (Fonction non utilisée)
+ * @return bool
+ */
 function isEdit() {
-    return isAdmin() || isReactiv();
+    return isAdmin() || !isReactiv();
 }
 
+/* ---------- GESTION DES DROITS ---------- */
+
+/**
+ * Crée les droits de l'utilisateur en fonction de sont profils et de ses statuts et stocke ces droits en session
+ * @return int
+ */
 function creeDroits() {
     $_SESSION['droitsDeBase'] = ['index', 'gestLog', 'pasvorto', 'formSubmit', 'formLogin'];
 
@@ -79,10 +111,14 @@ function creeDroits() {
         $_SESSION['user']['droitsPerdus'] = $listeDesDroitsPerdus;
         $_SESSION['user']['droits'] = array_diff($_SESSION['user']['droits'], $_SESSION['user']['droitsPerdus']);
     }
-
-    //debug(d($_SESSION['user']));
 }
 
+/* ---------- GENERATION DES MENUS ---------- */
+
+/**
+ * Génère dynamiquement les menus à afficher en fonction du profil et des status de l'utilisateur
+ * @return string
+ */
 function creeMenu() {
     $gestLog = 'Connexion';
     $profil = 'ano';

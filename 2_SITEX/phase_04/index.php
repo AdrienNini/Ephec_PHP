@@ -6,8 +6,11 @@
  * Time: 17:34
  */
 
+require_once "INC/dbConnect.inc.php";
+
 // SESSION
 
+session_name($sess_name);
 session_start();
 if (!isset($_SESSION['start'])) {
     $_SESSION['start'] = date('YmdHis');
@@ -16,7 +19,6 @@ if (!isset($_SESSION['start'])) {
 
 // Prerequired includes
 
-require_once "INC/dbConnect.inc.php";
 require_once "INC/mesFonctions.inc.php";
 require_once "/ALL/kint/kint.php";
 Kint::$return=true;

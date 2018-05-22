@@ -23,7 +23,7 @@
 }
 
 .ui-menu-item-wrapper.ui-state-active {
-    border-color: transparent;
+    border: 0.1em solid var(--menu-bg-color);
     background: none;
     color: #FF6533;
 }

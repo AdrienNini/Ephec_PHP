@@ -97,7 +97,7 @@ function gereRequete($rq) {
             break;
         default:
             callResAjax($rq);
-            kint('requête inconnue (' . $rq . ') transférée à callResAjax()');
+            //kint('requête inconnue (' . $rq . ') transférée à callResAjax()');
             break;
 
     }

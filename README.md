@@ -1,16 +1,16 @@
 # SITEX - Documentation
 
-## index.php 
+## :page_facing_up: index.php 
 
-📁 /index.php
+:file_folder: /index.php
 
 Fichier d'entrée de l'application. 
 Toutes les requêtes passent par là.
 Ce fichier se charge de démarer la session, charger la bonne configuration, créer les droits de l'utilisateur actuellement loggé, etc
 
-## request.inc.php
+## :page_facing_up: request.inc.php
 
-📁 /INC/request.inc.php
+:file_folder: /INC/request.inc.php
 
 Regroupe des fonctions de gestion des requêtes, des droits, de l'authentification.
 

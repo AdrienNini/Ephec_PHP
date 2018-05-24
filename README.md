@@ -131,7 +131,7 @@ La fonction renvoie false si le fichier n'existe pas.
 `string` : Renvoie le contenu du fichier de template <br>
 `bool` : Renoie `false` si le fichier n'existe pas
 
-### funciton _tpSem05()_
+### function _tpSem05()_
 
 Dans cette fonction se trouvent tous les envois nécessaires au fonctionnement du formulaire du tp5.<br>
 La fonction charge le template du formulaire tp5 (cfr. `chargeTemplate()`).

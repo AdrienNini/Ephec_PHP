@@ -72,3 +72,72 @@ On gère aussi les cas où l'utilisateur est en cours de réactivation, une boit
 
 `boolean` : Renvoie `TRUE` si l'utilisateur **NE PEUT PAS** éffectuer la requête.<br>
 `boolean` : Renvoie `FALSE` si l'utilisateur **A LE DROIT** d'éffectier la requête. 
+
+
+### function _KLogin()_
+
+Cette fonction se charge de l'affichage du formulaire de login.
+La fonction charge le template du formulaire et l'envoie dans un retour `formLogin`.
+
+### function _KLogout()_
+
+Cette fonction se charge de déconnecter l'utilisateur.
+La fonction supprime les données de l'utilisateur dans la session et envoie un retour `logout` qui affiche une boite de dialogue qui confirme le logout de l'utilisateur
+
+### function _authentication()_
+
+Cette fonction se charge de l'authentification de l'utilisateur. La fonction reçoit un utilisateur en paramètre, 
+récupère les profils de l'utilisateur, crée les droits de l'utilisateur et stocke toutes 
+les données en session.
+
+#### Paramètres
+
+`array $user` : tableau contenant les informations concernant l'utilisateur
+
+#### Return
+
+`int` : Retourne `-1` si l'utilisateur est en cours d'activation <br>
+`void` : Envoie une action `userConnu` avec les données du user
+
+### function _sendMakeTable()_
+
+Envoie un array à l'action `makeTable`. Cela affiche le tableau passé en paramètre en HTML5 dans la zone `#contenu`.
+
+#### Paramètres
+
+`array $tab` : Tableau à envoyer au JS
+
+### function _callResAjax()_
+
+Appelle la fonction ajax mise à disposition dans les ressources de Delvigne. Les requêtes non supportées par notre 
+application passeront par cette fonction.
+
+#### Paramètres
+
+`string $rq` : Requête demandée
+
+### function  _chargeTemplate()_
+
+Charge le fichier de template dont le nom est passé en paramètre. Le fichier doit se trouver dans le dossier :file_folder: INC/ et 
+avoir un nom commencant par `template.` et se terminant par `.inc.php`.<br>
+La fonction renvoie false si le fichier n'existe pas.
+
+#### Paramètres
+
+`string $name` : Nom du fichier de template à charger
+
+#### Return
+
+`string` : Renvoie le contenu du fichier de template <br>
+`bool` : Renoie `false` si le fichier n'existe pas
+
+### funciton _tpSem05()_
+
+Dans cette fonction se trouvent tous les envois nécessaires au fonctionnement du formulaire du tp5.<br>
+La fonction charge le template du formulaire tp5 (cfr. `chargeTemplate()`).
+La fonction fait un appel à la procédure `allGroups` et renvoie les données dans l'action `data`.
+Ces 'data' servent à remplir le sélecteur de groupes dans le formulaire.
+
+## :page_facing_up: droits.inc.php
+
+:file_folder: /INC/droits.inc.php

@@ -61,7 +61,7 @@ function isEdit() {
 /* ---------- GESTION DES DROITS ---------- */
 
 /**
- * Crée les droits de l'utilisateur en fonction de sont profils et de ses statuts et stocke ces droits en session
+ * Crée les droits de l'utilisateur en fonction de son profils et de ses status et stocke ces droits en session
  * @return int
  */
 function creeDroits() {

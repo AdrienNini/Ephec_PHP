@@ -141,3 +141,69 @@ Ces 'data' servent à remplir le sélecteur de groupes dans le formulaire.
 ## :page_facing_up: droits.inc.php
 
 :file_folder: /INC/droits.inc.php
+
+Cette librairie permet de gérer les droits des utilisateurs et de générer les menus selon les droits. 
+Ce fichier est protégé, il ne peut être ouvert directement et doit être inclu par le fichier index. 
+
+### function _isAuthenticated()_
+
+Vérifie qu'un utilisateur est connecté. 
+
+#### Return
+
+`bool` : Renvoie `true` si un utilisateur est connecté.
+
+### function _isAdmin()_
+
+Vérifie si l'utilisateur à un profil Administrateur.
+
+#### Return
+
+`bool` : Renvoie `true` si un utilisateur ayant le profil Administrateur est connecté
+
+### function _isSousAdmin()_
+
+Vérifie si l'utilisateur à un profil Sous-administrateur.
+
+#### Return
+
+`bool` : Renvoie `true` si un utilisateur ayant le profil Sous-administrateur est connecté
+
+### function _isReactiv()_
+
+Vérifie si l'utilisateur a le status de réactivation.
+
+#### Return 
+
+`bool` : Renvoie `true` si un utilisateur au status réactivation est connecté
+
+### function _isMdpp()_
+
+Vérifie si l'utilisateur a le status de mot de passe perdu.
+
+#### Return
+
+`bool` : Renvoie `true` si un utilisateur au status de mot de passe perdu est connecté
+
+### function _isEdit()_
+
+Vérifie si l'utilsateur à les droits d'édition pour les informations du site. (Fonction non utilisée).
+
+#### Return
+
+`bool` : Renvie `true` si l'utilisateur est Administrateur ou n'est pas en réactivation
+
+### function _creeDroits()_
+
+Crée les droits de l'utilisateur en fonction de son profils et de ses status et stocke ces droits en session.
+
+#### Return
+
+`int` : Renvoie `-1` si l'utilisateur n'est pas authentifié<br>
+`int` : Renvoie `-2` si l'utilisateur n'est pas en réactivation ou si l'utilisateur est Administrateur
+
+### function _creeMenu()_
+
+Génère dynamiquement les menus à afficher en fonction du profil et des status de l'utilisateur.
+
+`string` : Renvoie une chaine de caractères contenant les menus à afficher au format HTML5

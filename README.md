@@ -138,6 +138,8 @@ La fonction charge le template du formulaire tp5 (cfr. `chargeTemplate()`).
 La fonction fait un appel à la procédure `allGroups` et renvoie les données dans l'action `data`.
 Ces 'data' servent à remplir le sélecteur de groupes dans le formulaire.
 
+
+
 ## :page_facing_up: droits.inc.php
 
 :file_folder: /INC/droits.inc.php
@@ -207,3 +209,73 @@ Crée les droits de l'utilisateur en fonction de son profils et de ses status et
 Génère dynamiquement les menus à afficher en fonction du profil et des status de l'utilisateur.
 
 `string` : Renvoie une chaine de caractères contenant les menus à afficher au format HTML5
+
+
+
+## :page_facing_up: config.inc.php
+
+Classe Config : 
+
+- Gère la récupération de configuration depuis des fichiers `.ini`
+- Gère la génération d'un formulaire HTML5 pour modifier la config
+- Gère la sauvegarde dans un fichier `.ini ` de la nouvelle config
+
+### Attribut `$filename`
+
+Nom du ficher de configuration.<br>
+**Valeurs :** null | string
+
+### Attribut `$fileExist`
+
+Vrai si le fichier de config existe.<br>
+**Valeurs :** bool
+
+### Attribut `$config`
+
+Tableau multidimensionnel contenant la configuration un fois chargée.<br>
+**Valeurs :** array
+
+### Attribut `$saveError`
+
+Contient les erreurs rencontrées durant le processus de sauvegarde.<br>
+**Valeurs :** int
+
+### function ___construct()_
+
+Constructeur de la classe Config.<br>
+Si il reçoit un filename en paramètre, il le stocke dans l'attribut et vérifie son existance.
+
+#### Paramètres
+
+`string filename` : Nom du fichier de config. (Optionnel)
+
+### function _getFilename()_
+
+Getter du filename. <br>
+Retourne le nom du fichier de configuration. 
+
+#### Return
+
+`null` : Pas de nom de fichier enregistré
+`string` : Le nom du fichier
+
+### function _isFileExist()_
+
+Getter de l'attribut fileExist.<br>
+
+#### Return 
+
+`bool` : Renvoie `true` si le fichier de config existe
+`bool` : Renvoie `false` si le fichier de config n'existe pas
+
+### function _getConfig()_
+
+Getter de la configuration.<br>
+Renvoie un tableau multidimensionnel de la configuration actuellement chargée. 
+
+#### Return
+
+`array` : La configuration<br>
+`string` : Si aucune configuration chargée, Renvoie `Config non chargée`
+
+

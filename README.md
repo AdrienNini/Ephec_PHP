@@ -462,3 +462,62 @@ Fonction d'envoie d'informations vers JS au retour de l'appel AJAX. <br>
 `string txt` : Chaine de caractère à transmettre. <br>
 `string action` : Action à laquelle transmettre la chaine. Par defaut, action `display`.
 
+
+
+## :page_facing_up: index.js
+
+Script JS du site. Tout le traitement côté client du site est géré dans ce fichier. 
+
+### function _gereRetour()_
+
+Fonction de callback de l'appel AJAX. <br>
+Gère les retours envoyé par la fonction `toSend` de PHP.<br>
+Toutes les actions sont gérées dans cette fonction. 
+
+**Liste des actions supportées :**
+
+Action | Description
+-------|------------
+cacher | Cache le contenu dont le selecteur est passé dans le retour
+montrer | Affiche le contenu dont le selecteur est passé dans le retour
+layout | Met à jour le titre et le logo du site après un changement dans la config
+newMenu | Remplace l'ancien menu par le nouveau généré par la fonction PHP `creeMenu`
+formTP05 | Affiche le formulaire TP05 et gère l'évênementiel lié à ce formulaire
+formConfig | Affiche le formulaire de config et gère l'évênementiel du formulaire
+formLogin | Affiche le formulaire de connexion et gère l'évênementiel du formulaire
+userConnu | Appelée à la connexion de l'utilisateur, Affiche un message de bienvenue
+logout | Supprime les datas liés à l'utilisateur, Affiche de message de confirmation
+peutPas | Affiche une boite de dialogue lorsque l'utilisateur n'a pas le droit d'effectuer une action
+estRéac | Appelée si l'utilisateur est en cours de réactivation, Affiche un bandeau avec le message passé dans le retour
+display | Affiche l'élément passé dans le retour dans la zone `#contenu` du site
+kint, debug, error | Affiche le texte passé en paramètre dans la zone correspondant à l'action
+makeTable | Construit une table HTML5 avec le tableau passée dans le retour et l'affiche dans la zone `#contenu`
+jsonError | Affiche l'erreur dans la zone `#jsonError` du site
+data | Récupère et stocke les données pour l'action formTP05
+default | Affiche un message en console avec l'action et son contenu
+
+#### Paramètres
+
+`string retour` : Données envoyées par PHP au format JSON.
+
+### function _appelAjax()_
+
+Envoie une requête AJAX à la page `index.php` et envoie la requête demandée en GET
+
+#### Paramètres
+
+`string elem` : Requête à effectuer au format `<request>.html` 
+
+### function _testeJson()_
+
+Récupère le JSON passé en paramètre et le parse en objet JS.<br>
+Si le parse échoue, renvoie l'erreur à l'action jsonError.
+
+#### Paramètres
+
+`string json` : Le JSON à parser et tester
+
+#### Return
+
+`obj` : La structure de donnée en retour du parse
+

@@ -447,11 +447,11 @@ Affiche la chaine passée en paramètre dans la zone `#debug` du site.
 ### function _kint()_
 
 Affiche la chaine passée en paramètre dans la zone `#kint` du site. <br>
-La paramètre de cette fonction doit **TOUJOURS** être un retour de la fonction `d()`de la librairie kint. 
+La paramètre de cette fonction doit **TOUJOURS** être un retour de la fonction `d()` de la librairie kint. 
 
 #### Paramètres 
 
-`string txt` : Retour de la fonction `d()``
+`string txt` : Retour de la fonction `d()`
 
 ### function _toSend()_
 
@@ -461,3 +461,4 @@ Fonction d'envoie d'informations vers JS au retour de l'appel AJAX. <br>
 
 `string txt` : Chaine de caractère à transmettre. <br>
 `string action` : Action à laquelle transmettre la chaine. Par defaut, action `display`.
+

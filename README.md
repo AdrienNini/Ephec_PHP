@@ -278,4 +278,186 @@ Renvoie un tableau multidimensionnel de la configuration actuellement chargée.
 `array` : La configuration<br>
 `string` : Si aucune configuration chargée, Renvoie `Config non chargée`
 
+### function _getSaveError()_
 
+Getter de l'attribut saveError. <br>
+Renvoie une valeur différente de zéro si le processus de sauvegarde a rencontré une erreur. 
+
+#### Return 
+
+`int` : Le numéro de l'erreur
+
+### function _load()_
+
+Charge le fichier de config demandé dans l'attribut config. <br>
+La fonction va soit chargé la config du fichier stocké dans l'attribut filename, soit le fichier passé en paramètre. 
+
+#### Paramètres
+
+`string filename` : Nom du fichier de config à charger. (Optionnel)
+
+#### Return
+
+`array` : Renvoie la config si le chargement s'est bien passé <br>
+`bool` : Renvoie `false` si la fonction de lecture du fichier a rencontré une erreur <br>
+`string` : Renvoie un string si le fichier de config n'existe pas. <br>
+
+### function _save()_
+
+Sauvegarde la nouvelle configuration (contenue dans `$_POST`) à l'emplacement demandé.<br>
+Si une erreur est rencontrée durant le processus, renvoie une chaine avec l'erreur. 
+
+#### Paramètres
+
+`string filename` : Fichier dans lequel sauvegarder la config
+
+#### Return
+
+`string` : Le message d'erreur
+
+### function _getForm()_
+
+Génère dynamiquement un formulaire en se basant sur le fichier de config actuellement chargé. <br>
+
+#### Return
+
+`string` : Renvoie une chaine de caractère contenant le formulaire HTML5
+
+### function _getBloc()_
+
+Génère les différents blocs du formulaire. 
+
+#### Paramètres
+
+`string k` : Nom du bloc <br>
+`array v` : Tableau des éléments de ce bloc
+
+#### Return
+
+`array` : Renvoie un tableau des lignes du blocs généré
+
+### function _saveErrorMessage()_
+
+Retourne le bon message d'erreur selon le numéro passé en paramètre.
+
+#### Paramètres
+
+`int error` : Numéro de l'erreur
+
+#### Return
+
+`string` : Message d'erreur
+
+
+
+## :page_facing_up: db.inc.php
+
+Classe DB :
+
+- Gère la connection à la base de données
+- Gère les appels de procédures
+
+### Attribut `$db`
+
+Contient les informations de connection de la DB depuis la config.<br>
+**Valeurs :** array
+
+### Attribut `$pdoException`
+
+Contient les exceptions renvoyées par la connexion à la DB.<br>
+**Valeurs :** Exception | PDOException
+
+### Attribut `$iPdo`
+
+Contient l'instance de l'objet PDO.<br>
+**Valeurs :** PDO
+
+### fucntion ___construct()_
+
+Constructeur de la classe DB.<br>
+Initialise la connection à la DB sur base des infos de connexion venant de la config. 
+
+### function _getException()_
+
+Gettre de l'attribut pdoException.<br>
+Renvoie l'exception catché durant la connextion à la BD ou le call de procédure. 
+
+#### Return 
+
+`string` : Le message de l'exception
+
+### function _getServer()_
+
+Retourne le serveur sur lequel l'application tourne actuellement. 
+
+#### Return
+
+`string` : Renvoie `localhost` ou l'adresse ip du serveur 
+
+### function _call_v1()_
+
+Effectue un call à la procédure `mc_allGroups`. 
+
+#### Return 
+
+`array` : Retour de la procédure
+
+### function _call()_
+
+Effectue un call intelligent avec les paramètres passé à la fonction. 
+
+#### Paramètres
+
+`string name` : Nom de la procédure à appeler<br>
+`array param` : Tableau contenant les paramètres à passer à la procédure (Optionnel)
+
+#### Return
+
+`array` : Retour de la procédure
+
+
+## :page_facing_up: sender.inc.php
+
+Cette librairie gère l'envoi actions au JS.
+
+### function _display()_
+
+Affiche la chaine passée en paramètre dans la zone `#contenu` du site. 
+
+#### Paramètres
+
+`string txt` : Chaine de caractère à afficher
+
+### function _error()_
+
+Affiche la chaine passée en paramètre dans la zone `#error` du site.
+
+#### Paramètres 
+
+`string txt` : Chaine de caractère à afficher
+
+### function _debug()_
+
+Affiche la chaine passée en paramètre dans la zone `#debug` du site. 
+
+#### Paramètres
+
+`string txt` : Chaine de caractère à afficher
+
+### function _kint()_
+
+Affiche la chaine passée en paramètre dans la zone `#kint` du site. <br>
+La paramètre de cette fonction doit **TOUJOURS** être un retour de la fonction `d()`de la librairie kint. 
+
+#### Paramètres 
+
+`string txt` : Retour de la fonction `d()``
+
+### function _toSend()_
+
+Fonction d'envoie d'informations vers JS au retour de l'appel AJAX. <br>
+
+#### Paramètres
+
+`string txt` : Chaine de caractère à transmettre. <br>
+`string action` : Action à laquelle transmettre la chaine. Par defaut, action `display`.

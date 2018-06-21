@@ -506,7 +506,7 @@ Envoie une requête AJAX à la page `index.php` et envoie la requête demandée 
 
 #### Paramètres
 
-`string elem` : Requête à effectuer au format `<request>.html` 
+`string elem` : Requête à effectuer au format `<request>.html`
 
 ### function _testeJson()_
 
@@ -521,3 +521,93 @@ Si le parse échoue, renvoie l'erreur à l'action jsonError.
 
 `obj` : La structure de donnée en retour du parse
 
+### function _makeOptions()_
+
+Construit une liste d'options HTML5 (select). 
+
+#### Paramètres
+
+`array list` : Liste d'options <br>
+`string value` : Clé de la liste à utiliser pour la valeur de l'option <br>
+`string displayTxt` : Clé de la liste à utiliser comme texte à afficher dans l'option <br>
+
+#### Return
+
+`string` : Chaine de caractère contenant le select HTML5
+
+### function _makeTableFromObject()_
+
+Crée un tableau HTML5 sur base d'un tableau d'objets passé en paramètre
+
+#### Paramètres
+
+`array tab` : Tableau d'objet
+
+#### Return 
+
+`string` : Tableau HTML5
+
+### function _makeTableFromArray()_
+
+Crée un tableau HTML5 sur base d'un tableau de tableau passé en paramètre.
+
+#### Paramètres
+
+`array tab`: Tableau de tableau
+
+#### Return
+
+`string` : Tableau HTML5
+
+### function _makeTheadObject()_
+
+Crée le Thead d'un tableau HTML5 pour des objets.
+
+#### Paramètres
+
+`string el` : Titre de la colonne <br>
+`array type` : Détermine le type d'élément dans le tableau <br>
+
+#### Return
+
+`string` : Thead HTML5
+
+### function _makeTheadArray()_
+
+Crée le Thead d'un tableau HTML5 pour des arrays.
+
+#### Paramètres
+
+`string el` : Titre de la colonne <br>
+`array type` : Détermine le type d'élément dans le tableau <br>
+
+#### Return
+
+`string` : Thead HTML5
+
+### function _makeTbody()_
+
+Crée le Tbody d'un tableau HTML5 pour un array.
+
+#### Paramètres
+
+`array tab` : Tableau des données du tableau <br>
+`string type` : Type de structure de données
+
+### function _makeTable()_
+
+Crée un tableau HTML5 sur base du tableau passé en paramètre.
+
+#### Paramètres
+
+`array tab` : Tableau de données
+
+#### Return
+
+`string` : Tableau HTML5
+
+### function _filtrage()_
+
+Fonction événementielle. <br>
+Filtre les groupes en fonction de l'input dans une barre de recherche. <br>
+Effectue la cherche sur le début, le milieu ou la fin de la chaine selon la radiobox sélectionnée.
